@@ -14,3 +14,9 @@ C:\MMREF\GitHub\C0DEC0RE\C0DEC0RE\BlockMattei\obj\Debug\BlockMattei.csprojResolv
 C:\MMREF\GitHub\C0DEC0RE\C0DEC0RE\BlockMattei\obj\Debug\BlockMattei.csproj.CoreCompileInputs.cache
 C:\MMREF\GitHub\C0DEC0RE\C0DEC0RE\BlockMattei\obj\Debug\BlockMattei.dll
 C:\MMREF\GitHub\C0DEC0RE\C0DEC0RE\BlockMattei\obj\Debug\BlockMattei.pdb
+C:\gitHub\DataMattei\BlockMattei\bin\Debug\BlockMattei.dll
+C:\gitHub\DataMattei\BlockMattei\bin\Debug\BlockMattei.pdb
+C:\gitHub\DataMattei\BlockMattei\obj\Debug\BlockMattei.csprojResolveAssemblyReference.cache
+C:\gitHub\DataMattei\BlockMattei\obj\Debug\BlockMattei.csproj.CoreCompileInputs.cache
+C:\gitHub\DataMattei\BlockMattei\obj\Debug\BlockMattei.dll
+C:\gitHub\DataMattei\BlockMattei\obj\Debug\BlockMattei.pdb

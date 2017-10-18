@@ -203,14 +203,20 @@ namespace dbWorkshop {
     }
     public string GetHelpText(TreeNode cn) { // expecting a Function or Procedure as cn. 
       string sDBName = cn.Parent.Parent.Parent.Text.ParseString(":",0);
+      string sDatabase = cn.Parent.Parent.Text;
       string sResult = "";
       MMData d = new MMData();
-      DataSet ds = d.GetStProcDataSet(sDBName,"exec sp_helptext @aObjName",new StProcParam[] { new StProcParam("@aObjName",DbType.String,cn.Text) });
-      if(ds.Tables.Count > 0) {
-        foreach(DataRow dr in ds.Tables[0].Rows) {
-          sResult = sResult + Convert.ToString(dr["Text"]);
+      try {
+        DataSet ds = d.GetStProcDataSet(sDBName,"exec "+sDatabase+".sys.sp_helptext @aObjName",new StProcParam[] { new StProcParam("@aObjName",DbType.String,cn.Text) });
+        if(ds.Tables.Count > 0) {
+          foreach(DataRow dr in ds.Tables[0].Rows) {
+            sResult = sResult + Convert.ToString(dr["Text"]);
+          }
         }
+      } catch(Exception e) {
+        sResult = "Error while accessing sp_HelpText, "+e.Message;
       }
+      
       return sResult;
     }
 
