@@ -23,13 +23,11 @@
 *.lo
 
 # Shared objects (inc. Windows DLLs)
-*.dll
 *.so
 *.so.*
 *.dylib
 
 # Executables
-*.exe
 *.out
 *.app
 *.i*86
@@ -50,5 +48,4 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-App.config
-web.config
+a.config

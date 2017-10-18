@@ -46,12 +46,18 @@ namespace dbWorkshop
           dbName = e.Node.Text.ParseString(":",0);
           e.Node.Nodes.Clear();
           RCData d0 = new RCData(dCon[dbName]);
-          DataSet ds1 = d0.GetDataSet("select name db from master.dbo.sysdatabases where (dbid > 2) and (not (name in ('model','msdb')))  order by name");
-          foreach(DataRow dr in ds1.Tables[0].Rows) {
-            string sDB = Convert.ToString(dr["DB"]);
-            TreeNode atn = new TreeNode(sDB,1,1);
-            atn.Nodes.Add("PlaceHolder");
-            e.Node.Nodes.Add(atn);
+          try {
+            DataSet ds1 = d0.GetDataSet("select name db from master.dbo.sysdatabases where (dbid > 2) and (not (name in ('model','msdb')))  order by name");
+
+            foreach(DataRow dr in ds1.Tables[0].Rows) {
+              string sDB = Convert.ToString(dr["DB"]);
+              TreeNode atn = new TreeNode(sDB,1,1);
+              atn.Nodes.Add("PlaceHolder");
+              e.Node.Nodes.Add(atn);
+            }
+          } catch(Exception ex) {
+            MessageBox.Show("Database failed to connect:"+ex.Message);
+            label1.Text = "Edit the App.config in bin folder with connection string.";
           }
         break;
         case 1:  // database Level
