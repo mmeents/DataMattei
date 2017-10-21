@@ -1,0 +1,14 @@
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\TestStrings.exe.config
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\TestStrings.exe
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\TestStrings.pdb
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\BlockMattei.dll
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\C0DEC0RE.dll
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\BlockMattei.pdb
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\C0DEC0RE.pdb
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csprojResolveAssemblyReference.cache
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.Form1.resources
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.Properties.Resources.resources
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csproj.GenerateResource.Cache
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csproj.CoreCompileInputs.cache
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.exe
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.pdb
