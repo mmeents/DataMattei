@@ -40,6 +40,7 @@ namespace BlockMattei {
     public byte[] getKey { get { return KeyA.toByteArray(); } }
     public byte[] getIV { get { return KeyB.toByteArray(); } }
   }
+
   public class IniVar {
     string FileName;
     Dictionary<string, string> cache;
@@ -72,6 +73,51 @@ namespace BlockMattei {
     }
     public string this[string VarName] { get { return GetVarValue(VarName); } set { SetVarValue(VarName, value); } }
   }
+
+  public class FileVar
+  {
+    string FileName;
+    Dictionary<string, string> cache;
+    public FileVar(string sFileName)
+    {
+      FileName = sFileName;
+      cache = new Dictionary<string, string>();
+    }
+    private void SetVarValue(string VarName, string VarValue){
+      try
+      {
+        IniFile f = IniFile.FromFile(FileName);
+        f["Variables"][VarName] = VarValue;
+        f.Save(FileName);
+        cache[VarName] = VarValue;
+      }
+      catch (Exception e)
+      {
+        throw e;
+      }
+    }
+    private string GetVarValue(string VarName){
+      string result = "";
+      try
+      {
+        if (cache.ContainsKey(VarName))
+        {
+          result = cache[VarName];
+        }
+        else
+        {
+          IniFile f = IniFile.FromFile(FileName);
+          result = f["Variables"][VarName];
+          cache[VarName] = result;
+        }
+      }
+      catch { }
+      return result;
+    }
+    public string this[string VarName] { get { return GetVarValue(VarName); } set { SetVarValue(VarName, value); } }
+  }
+
+
   public static class BlockUtils {
 
     #region Salts...
@@ -318,6 +364,15 @@ namespace BlockMattei {
         Directory.CreateDirectory(sUserDataDir);
       }
       return sUserDataDir;
+    }
+
+    public static string MMConLocation() {
+      string sCommon = Application.CommonAppDataPath;
+      sCommon = sCommon.Substring(0, sCommon.LastIndexOf('\\'));
+      sCommon = sCommon.Substring(0, sCommon.LastIndexOf('\\'));
+      sCommon = sCommon.Substring(0, sCommon.LastIndexOf('\\')+1);
+      return sCommon+"MMCommons";     
+       
     }
 
     #endregion

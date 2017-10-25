@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -45,5 +46,63 @@ namespace TestStrings {
       DataSet ds = d.GetDataSet("PD","SELECT[M_ID] FROM feedreader.[dbo].[Markets]");
 
     }
+
+    private void button2_Click(object sender, EventArgs e){
+      textBox1.Text = Application.UserAppDataPath+Environment.NewLine+
+        Application.CommonAppDataPath+Environment.NewLine +
+        Application.LocalUserAppDataPath + Environment.NewLine+
+        BlockUtils.MMConLocation();
+
+    }
   }
+
+  public class MMConMgr {
+    public string FileName = "";
+    public FileVar ivFile;
+    private Boolean ConfigMgrJacked = false;
+    public MMConMgr(string sFileName) {
+      typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ConfigurationManager.ConnectionStrings, false);
+      ConfigurationManager.ConnectionStrings.Clear();
+      FileName = BlockUtils.MMConLocation()+"\\"+ sFileName+".cons";
+      if ( !Directory.Exists(BlockUtils.MMConLocation()+"\\" )) {
+        Directory.CreateDirectory(BlockUtils.MMConLocation() + "\\");
+      }
+      ivFile = new FileVar(FileName);
+      Load();
+    }
+    public void Load() {
+      string s = ivFile["ConnectionCount"];
+      if (s == "") {
+        ivFile["ConnectionCount"] = 0;
+        s = "0";
+      }
+      Int32 iConCount = 0;
+      if (Int32.TryParse(s, out iConCount)) {
+        if (iConCount > 0) {
+          for (Int32 i = 1; i <= iConCount; i++) {
+            string sConName = ivFile["Con" + i.ToString() + "Name"];
+            string sConConnection = ivFile["Con" + i.ToString() + "String"];
+            string sConProvider = ivFile["Con" + i.ToString() + "Provider"];
+            Add(sConName, sConConnection, sConProvider);
+          }
+        }
+      }
+    }
+    public void Add(string sConName, string sConStr, string sConPro ) {
+      ConnectionStringSettings cs = new ConnectionStringSettings(sConName, sConStr, sConPro);
+      ConfigurationManager.ConnectionStrings.Add(cs);
+    }
+    public void Write() {
+      Int32 iConCount = ConfigurationManager.ConnectionStrings.Count;
+      ivFile["ConnectionCount"] = iConCount.ToString();
+      Int32 i = 1;
+      foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
+        ivFile["Con" + i.ToString() + "Name"] = sx.Name;
+        ivFile["Con" + i.ToString() + "String"] = sx.ConnectionString;
+        ivFile["Con" + i.ToString() + "Provider"] = sx.ProviderName;
+        i++; 
+      }
+    }
+  }
+
 }
