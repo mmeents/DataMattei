@@ -16,6 +16,7 @@ namespace BlockMattei {
     private string KeyPwd;
     private string KeyA;
     private string KeyB;
+    private Int32 NextKeyBaseSalt = 41;
     public KeyPair(KeyType aKT, string sPassword) {
       TypeOfKey = aKT;
       KeyPwd = sPassword;
@@ -35,6 +36,9 @@ namespace BlockMattei {
           break;
       }
 
+    }
+    public KeyPair NextKeyPair(Int32 Offset) {
+      return new KeyPair(TypeOfKey, KeyPwd + (NextKeyBaseSalt + Offset).ToString());
     }
     //  used for AES & DES.
     public byte[] getKey { get { return KeyA.toByteArray(); } }

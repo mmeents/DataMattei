@@ -15,43 +15,64 @@ using C0DEC0RE;
 
 namespace TestStrings {
   public partial class Form1:Form {
+    public MMConMgr mConMgr;
     public Form1() {
+      mConMgr = new MMConMgr("ConnectGroupAlpha", "mConMgrBaseAlpha");
       InitializeComponent();
     }
 
     private void button1_Click(object sender,EventArgs e) {
+
+
+      mConMgr.Add("PD", "database=;server=;user=;password=;", "System.Data.SqlClient");
+      mConMgr.Write();
+      LoadlbMain();
+
       
-      foreach(ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings) {
-        //if((!dCon.Keys.Contains(sx.Name)) && (sx.Name != "LocalSqlServer")) {
-        //  dCon.Add(sx.Name,new DbConnectionInfo(sx.Name,sx.ConnectionString));
-        //}
-        textBox1.Text = textBox1.Text+ Environment.NewLine+ sx.Name+"xxx"+sx.ConnectionString;
-
-      }
-      
-      typeof(ConfigurationElementCollection).GetField("bReadOnly",BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ConfigurationManager.ConnectionStrings,false);
-      ConfigurationManager.ConnectionStrings.Clear();
-      ConnectionStringSettings cs = new ConnectionStringSettings("PD","database=Markets;server=M18;user=msa;password=pw7768987;","System.Data.SqlClient");
-      ConfigurationManager.ConnectionStrings.Add(cs);
-
-      foreach(ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings) {
-        //if((!dCon.Keys.Contains(sx.Name)) && (sx.Name != "LocalSqlServer")) {
-        //  dCon.Add(sx.Name,new DbConnectionInfo(sx.Name,sx.ConnectionString));
-        //}
-        textBox1.Text = textBox1.Text + Environment.NewLine + sx.Name + "xxx" + sx.ConnectionString;
-
-      }
-
-      MMData d = new MMData();
-      DataSet ds = d.GetDataSet("PD","SELECT[M_ID] FROM feedreader.[dbo].[Markets]");
 
     }
 
     private void button2_Click(object sender, EventArgs e){
-      textBox1.Text = Application.UserAppDataPath+Environment.NewLine+
-        Application.CommonAppDataPath+Environment.NewLine +
-        Application.LocalUserAppDataPath + Environment.NewLine+
-        BlockUtils.MMConLocation();
+    }
+
+    public void LoadlbMain() {
+      Int32 iselIndx = lbMain.SelectedIndex;
+      lbMain.Items.Clear();
+      foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
+        DbConnectionInfo aCI = new DbConnectionInfo(sx.Name, sx.ConnectionString);
+        lbMain.Items.Add(sx.Name + ":" + aCI.ServerName + ":" + aCI.InitialCatalog);
+      }
+      if ((iselIndx>=0)&&(iselIndx <= lbMain.Items.Count-1)) {
+        lbMain.SelectedIndex = iselIndx;
+      }
+    }
+
+    private void Form1_Shown(object sender, EventArgs e) {
+
+      LoadlbMain();
+
+    }
+
+    private void lbMain_MouseDoubleClick(object sender, MouseEventArgs e){
+      string sConName = Convert.ToString(lbMain.SelectedItem).ParseString(":", 0);
+      DbConnectionInfo aCI=null;
+      ConnectionStringSettings cx = null;
+      foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
+        if (sx.Name == sConName) {
+          aCI = new DbConnectionInfo(sx.Name, sx.ConnectionString);
+          cx = sx;
+          break;
+        }
+      }
+      ConnectionDetail aCD = new ConnectionDetail();
+      aCD.dbCI = aCI;
+      if (aCD.ShowDialog() == DialogResult.OK) {
+         Int32 iIndex = ConfigurationManager.ConnectionStrings.IndexOf(cx);
+         ConfigurationManager.ConnectionStrings[iIndex].Name = aCD.dbCI.ConnectionName;
+         ConfigurationManager.ConnectionStrings[iIndex].ConnectionString = aCD.dbCI.ConnectionString;
+         LoadlbMain();
+      }
+
 
     }
   }
@@ -59,10 +80,13 @@ namespace TestStrings {
   public class MMConMgr {
     public string FileName = "";
     public FileVar ivFile;
-    private Boolean ConfigMgrJacked = false;
-    public MMConMgr(string sFileName) {
+    private KeyPair kpBaseKey;
+    public MMConMgr(string sFileName, string sPassword) {
       typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ConfigurationManager.ConnectionStrings, false);
       ConfigurationManager.ConnectionStrings.Clear();
+
+      kpBaseKey = new KeyPair(KeyType.AES, sPassword);
+
       FileName = BlockUtils.MMConLocation()+"\\"+ sFileName+".cons";
       if ( !Directory.Exists(BlockUtils.MMConLocation()+"\\" )) {
         Directory.CreateDirectory(BlockUtils.MMConLocation() + "\\");
@@ -73,7 +97,7 @@ namespace TestStrings {
     public void Load() {
       string s = ivFile["ConnectionCount"];
       if (s == "") {
-        ivFile["ConnectionCount"] = 0;
+        ivFile["ConnectionCount"] = "0";
         s = "0";
       }
       Int32 iConCount = 0;
@@ -81,7 +105,7 @@ namespace TestStrings {
         if (iConCount > 0) {
           for (Int32 i = 1; i <= iConCount; i++) {
             string sConName = ivFile["Con" + i.ToString() + "Name"];
-            string sConConnection = ivFile["Con" + i.ToString() + "String"];
+            string sConConnection = kpBaseKey.NextKeyPair(i).toDecryptAES( ivFile["Con" + i.ToString() + "String"] );
             string sConProvider = ivFile["Con" + i.ToString() + "Provider"];
             Add(sConName, sConConnection, sConProvider);
           }
@@ -98,7 +122,7 @@ namespace TestStrings {
       Int32 i = 1;
       foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
         ivFile["Con" + i.ToString() + "Name"] = sx.Name;
-        ivFile["Con" + i.ToString() + "String"] = sx.ConnectionString;
+        ivFile["Con" + i.ToString() + "String"] = kpBaseKey.NextKeyPair(i).toAESCipher(sx.ConnectionString);
         ivFile["Con" + i.ToString() + "Provider"] = sx.ProviderName;
         i++; 
       }

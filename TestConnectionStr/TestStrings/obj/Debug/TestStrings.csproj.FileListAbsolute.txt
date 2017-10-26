@@ -12,3 +12,4 @@ C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csproj.
 C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csproj.CoreCompileInputs.cache
 C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.exe
 C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.pdb
+C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.ConnectionDetail.resources
