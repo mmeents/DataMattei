@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
-
-//using Data;
-//using Data.Configuration;
-
+using System.IO;
+using System.Windows.Forms;
+using System.Reflection;
 
 namespace C0DEC0RE {
 
@@ -139,4 +138,142 @@ namespace C0DEC0RE {
 	
 	} // end of class
 
+  public class FileVar {
+    string FileName;
+    Dictionary<string, string> cache;
+    public FileVar(string sFileName)
+    {
+      FileName = sFileName;
+      cache = new Dictionary<string, string>();
+    }
+    private void SetVarValue(string VarName, string VarValue)
+    {
+      try
+      {
+        IniFile f = IniFile.FromFile(FileName);
+        f["Variables"][VarName] = VarValue;
+        f.Save(FileName);
+        cache[VarName] = VarValue;
+      }
+      catch (Exception e)
+      {
+        throw e;
+      }
+    }
+    private string GetVarValue(string VarName)
+    {
+      string result = "";
+      try
+      {
+        if (cache.ContainsKey(VarName))
+        {
+          result = cache[VarName];
+        }
+        else
+        {
+          IniFile f = IniFile.FromFile(FileName);
+          result = f["Variables"][VarName];
+          cache[VarName] = result;
+        }
+      }
+      catch { }
+      return result;
+    }
+    public string this[string VarName] { get { return GetVarValue(VarName); } set { SetVarValue(VarName, value); } }
+  }
+
+  public class MMConMgr {
+    public string FileName = "";
+    public string sProvider = "System.Data.SqlClient";
+    public FileVar ivFile;
+    private KeyPair kpBaseKey;
+    public MMConMgr(string sFileName, string sPassword)
+    {
+      typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ConfigurationManager.ConnectionStrings, false);
+      ConfigurationManager.ConnectionStrings.Clear();
+      kpBaseKey = new KeyPair(KeyType.AES, sPassword);
+      FileName = BlockUtils.MMConLocation() + "\\" + sFileName + ".cons";
+      if (!Directory.Exists(BlockUtils.MMConLocation() + "\\"))
+      {
+        Directory.CreateDirectory(BlockUtils.MMConLocation() + "\\");
+      }
+      ivFile = new FileVar(FileName);
+      Load();
+    }
+    public void Load()
+    {
+      string s = ivFile["ConnectionCount"];
+      if (s == "")
+      {
+        ivFile["ConnectionCount"] = "0";
+        s = "0";
+      }
+      Int32 iConCount = 0;
+      if (Int32.TryParse(s, out iConCount))
+      {
+        if (iConCount > 0)
+        {
+          for (Int32 i = 1; i <= iConCount; i++)
+          {
+            string sConName = ivFile["Con" + i.ToString() + "Name"];
+            string sConConnection = kpBaseKey.NextKeyPair(i).toDecryptAES(ivFile["Con" + i.ToString() + "String"]);
+            string sConProvider = ivFile["Con" + i.ToString() + "Provider"];
+            Add(sConName, sConConnection, sConProvider);
+          }
+        }
+      }
+    }
+    public void Add(string sConName, string sConStr, string sConPro)
+    {
+      ConnectionStringSettings cs = new ConnectionStringSettings(sConName, sConStr, sConPro);
+      ConfigurationManager.ConnectionStrings.Add(cs);
+    }
+    public void Write()
+    {
+      Int32 iConCount = ConfigurationManager.ConnectionStrings.Count;
+      ivFile["ConnectionCount"] = iConCount.ToString();
+      Int32 i = 1;
+      foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings)
+      {
+        ivFile["Con" + i.ToString() + "Name"] = sx.Name;
+        ivFile["Con" + i.ToString() + "String"] = kpBaseKey.NextKeyPair(i).toAESCipher(sx.ConnectionString);
+        ivFile["Con" + i.ToString() + "Provider"] = sx.ProviderName;
+        i++;
+      }
+    }
+    public bool Edit(string sConName) {            
+      ConnectionStringSettings cx = getConnectionStringSetting(sConName);      
+      ConnectionDetail aCD = new ConnectionDetail();
+      if (cx!=null){
+        aCD.dbCI = new DbConnectionInfo(sConName, cx.ConnectionString);
+      } else {
+        aCD.dbCI = new DbConnectionInfo();
+      }
+      aCD.dbCI.UseIntegratedSecurity = false;
+      bool bOK = false;
+      if (aCD.ShowDialog() == DialogResult.OK) {
+        bOK = true;
+        if (cx==null){
+          Add(aCD.dbCI.ConnectionName, aCD.dbCI.ConnectionString, sProvider);  
+        } else {
+          Int32 iIndex = ConfigurationManager.ConnectionStrings.IndexOf(cx);
+          ConfigurationManager.ConnectionStrings[iIndex].Name = aCD.dbCI.ConnectionName;
+          ConfigurationManager.ConnectionStrings[iIndex].ConnectionString = aCD.dbCI.ConnectionString;
+        }
+
+      }
+      return bOK;
+    }
+    public ConnectionStringSettings getConnectionStringSetting(string sConName){
+      ConnectionStringSettings cs = null;
+      foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
+        if (sx.Name == sConName) {          
+          cs = sx;
+          break;
+        }
+      }
+      return cs;      
+    }
+  }
+  
 }

@@ -1,8 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BlockMattei"
+    "\\BlockMattei\\bin\\Debug",
+    "\\C0DEC0RE",
+    "\\TestConnectionStr\\TestStrings",
+    "\\TestConnectionStr\\TestStrings\\bin",
+    "\\TestConnectionStr\\TestStrings\\bin\\Debug"
   ],
-  "SelectedNode": "\\BlockMattei\\BlockMattei.sln",
+  "SelectedNode": "\\C0DEC0RE\\C0DEC0RE.sln",
   "PreviewInSolutionExplorer": false
 }

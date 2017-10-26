@@ -27,3 +27,11 @@ C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
 C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
 C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
 C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.dll
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.ConnectionDetail.resources
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
+C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb

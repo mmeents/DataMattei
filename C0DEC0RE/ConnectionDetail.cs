@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using C0DEC0RE;
 
-namespace TestStrings
-{
-  public partial class ConnectionDetail : Form{
+namespace C0DEC0RE {
+
+  public partial class ConnectionDetail : Form {
     public DbConnectionInfo dbCI = null; 
     public ConnectionDetail(){
       InitializeComponent();
@@ -23,7 +19,7 @@ namespace TestStrings
         dbCI.ServerName = textBox2.Text;
         dbCI.InitialCatalog = textBox3.Text;
         dbCI.UserName = textBox4.Text;
-        dbCI.Password = textBox5.Text;
+        dbCI.Password = textBox5.Text;        
       }
     }
 

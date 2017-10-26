@@ -58,9 +58,11 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +114,12 @@
     <Compile Include="ConfigurationSourceSection.cs" />
     <Compile Include="ConfigurationSourceWatcher.cs" />
     <Compile Include="ConfiguredObjectStrategy.cs" />
+    <Compile Include="ConnectionDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectionDetail.Designer.cs">
+      <DependentUpon>ConnectionDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionFailedEvent.cs" />
     <Compile Include="ConnectionFailedEventArgs.cs" />
     <Compile Include="ConnectionString.cs" />
@@ -235,8 +243,10 @@
     <Compile Include="MethodExecutionStrategy.cs" />
     <Compile Include="MethodPolicy.cs" />
     <Compile Include="MethodReflectionStrategy.cs" />
+    <Compile Include="MMCrypto.cs" />
     <Compile Include="MMData.cs" />
     <Compile Include="MMDataConfig.cs" />
+    <Compile Include="MMExt.cs" />
     <Compile Include="MMWebSiteUsers.cs" />
     <Compile Include="NamedConfigurationElement.cs" />
     <Compile Include="NamedElementCollection.cs" />
@@ -300,6 +310,9 @@
     <Compile Include="WeakRefDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ConnectionDetail.resx">
+      <DependentUpon>ConnectionDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>

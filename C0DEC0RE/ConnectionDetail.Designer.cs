@@ -1,4 +1,4 @@
-﻿namespace TestStrings
+﻿namespace C0DEC0RE
 {
   partial class ConnectionDetail
   {

@@ -13,3 +13,15 @@ C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csproj.
 C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.exe
 C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.pdb
 C:\gitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.ConnectionDetail.resources
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\TestStrings.exe.config
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\TestStrings.exe
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\TestStrings.pdb
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\C0DEC0RE.dll
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csprojResolveAssemblyReference.cache
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.Form1.resources
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.Properties.Resources.resources
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csproj.GenerateResource.Cache
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.csproj.CoreCompileInputs.cache
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.exe
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\obj\Debug\TestStrings.pdb
+C:\MMREF\GitHub\DataMattei\TestConnectionStr\TestStrings\bin\Debug\C0DEC0RE.pdb
