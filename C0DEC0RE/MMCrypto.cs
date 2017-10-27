@@ -24,7 +24,7 @@ namespace C0DEC0RE {
           break;
         case KeyType.DES:
           KeyA = aPDB.CryptDeriveKey("DES", "SHA1", 64, new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }).toHexStr();
-          KeyB = BlockUtils.defIV.toHexStr();
+          KeyB = MMExt.defIV.toHexStr();
           break;
         case KeyType.RSA:
           break;

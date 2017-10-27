@@ -192,10 +192,10 @@ namespace C0DEC0RE {
       typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ConfigurationManager.ConnectionStrings, false);
       ConfigurationManager.ConnectionStrings.Clear();
       kpBaseKey = new KeyPair(KeyType.AES, sPassword);
-      FileName = BlockUtils.MMConLocation() + "\\" + sFileName + ".cons";
-      if (!Directory.Exists(BlockUtils.MMConLocation() + "\\"))
+      FileName = MMExt.MMConLocation() + "\\" + sFileName + ".cons";
+      if (!Directory.Exists(MMExt.MMConLocation() + "\\"))
       {
-        Directory.CreateDirectory(BlockUtils.MMConLocation() + "\\");
+        Directory.CreateDirectory(MMExt.MMConLocation() + "\\");
       }
       ivFile = new FileVar(FileName);
       Load();

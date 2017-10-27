@@ -6,14 +6,8 @@ using System.Windows.Forms;
 
 
 namespace C0DEC0RE {
-
-
-  class MMExt
-  {
-  }
-
-  public static class BlockUtils
-  {
+    
+  public static class MMExt {
 
     #region Salts...
     public static byte[] defIV = new byte[] { 11, 13, 27, 31, 37, 41, 71, 87 };
@@ -274,6 +268,10 @@ namespace C0DEC0RE {
       string y = String.Format(CultureInfo.InvariantCulture, "{0:mm:ss.FFF}", x);
       return y;
     }
+    public static string ToStrDateMM(this DateTime x) {
+      string y = String.Format(CultureInfo.InvariantCulture, "{0:MM/dd/yyyy hh:mm}", x);
+      return y;
+    }
 
     #endregion
 
@@ -314,9 +312,7 @@ namespace C0DEC0RE {
     }
 
     #endregion
-
-
-
+    
   }
 
 
