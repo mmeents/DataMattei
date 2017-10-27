@@ -52,3 +52,15 @@ C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\C0DEC0RE.dll
 C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\C0DEC0RE.pdb
 C:\gitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.exe
 C:\gitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.pdb
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.exe.config
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.exe
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.pdb
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\bin\Debug\C0DEC0RE.dll
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\bin\Debug\C0DEC0RE.pdb
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csprojResolveAssemblyReference.cache
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.Form1.resources
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.Properties.Resources.resources
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.GenerateResource.Cache
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.CoreCompileInputs.cache
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.exe
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.pdb

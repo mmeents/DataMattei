@@ -23,24 +23,28 @@ namespace dbWorkshop {
         case 4: PrepareView(focusNode); break;
         case 5: PrepareStProc(focusNode); break;
         case 6: PrepareFunction(focusNode); break;
-      }
+      }      
     }
 
     public void PrepareServer(TreeNode tnServer) {
       edSQL.Text = "SQL Not Implemented Yet";
       edC.Text = "C# Not Implemented yet ";
+      edSQLCursor.Text="Not Implemented see Table or View item on tree.";
     }
     public void PrepareDatabase(TreeNode tnDatabase) {
       edSQL.Text = "SQL Not Implemented Yet";
       edC.Text = "C# Not Implemented yet ";
+      edSQLCursor.Text="Not Implemented see Table or View item on tree.";
     }
     public void PrepareFolder(TreeNode tnFolder) {
       edSQL.Text = "SQL Not Implemented Yet";
       edC.Text = "C# Not Implemented yet ";
+      edSQLCursor.Text="Not Implemented see Table or View item on tree.";
     }
     public void PrepareFunction(TreeNode tnFunction) {
       edSQL.Text = GetHelpText(tnFunction);
       edC.Text = "C# Not Implemented yet ";
+      edSQLCursor.Text="Not Implemented see Table or View item on tree.";
     }
     public void PrepareTable(TreeNode tnTable) {
       TreeNode cn = tnTable;
@@ -73,13 +77,15 @@ namespace dbWorkshop {
         "    Update " + tblName + " set" + Environment.NewLine + sAssignColSQL + Environment.NewLine + "    where " + sUpdateDefWhere + Environment.NewLine +
         "  end" + Environment.NewLine +
         "  select @a " + sKey + Environment.NewLine + "return";
-
-      edSQL.Text = sSQL;
+      edSQL.Text=sSQL;
+        
       edC.Text = "C# Not Implemented yet ";
+      edSQLCursor.Text=GetSQLCursor(tnTable);
     }
     public void PrepareView(TreeNode tnView) {
-      edSQL.Text = GetHelpText(tnView);
+      edSQL.Text=GetHelpText(tnView);        
       edC.Text = "C# Not Implemented yet ";
+      edSQLCursor.Text =GetSQLCursor(tnView);
     }
     public void PrepareStProc(TreeNode tnStProc) {
       edSQL.Text = GetHelpText(tnStProc);
@@ -110,8 +116,32 @@ namespace dbWorkshop {
 
 
       edC.Text = s;
+      edSQLCursor.Text="Not Implemented see Table or View item on tree.";
     }
 
+    public string GetSQLCursor(TreeNode tnTable) {     
+      string sSQLDeclareList = GetSQLDeclareVarColList(tnTable);
+      string sSQLColumnList = GetChildColListAll(tnTable);
+      string sSQLColumnVarList = GetSQLColumnVarList(tnTable);
+      return "--  SQL Stored Proc "+tnTable.Text+" Cursor iterate stub "+Environment.NewLine+
+        GetAbout()+
+        "Create Procedure dbo.spForeach"+tnTable.Text+"Do () as begin "+Environment.NewLine+
+           sSQLDeclareList+Environment.NewLine+
+        "  declare aCur cursor local fast_forward for "+Environment.NewLine+
+        "  select "+sSQLColumnList+Environment.NewLine+
+        "    from "+tnTable.Text+Environment.NewLine+
+        "  open aCur fetch aCur into "+Environment.NewLine+
+        "    "+sSQLColumnVarList+Environment.NewLine+
+        "  while @@fetch_status = 0 begin "+Environment.NewLine+
+        "    "+Environment.NewLine+
+        "    "+Environment.NewLine+
+        "    fetch aCur into "+Environment.NewLine+
+        "      "+sSQLColumnVarList+Environment.NewLine+
+        "  end"+Environment.NewLine+
+        "  close aCur"+Environment.NewLine+
+        "  deallocate aCur"+Environment.NewLine+
+        "end"+ Environment.NewLine;     
+    }
 
     public string GetSQLParamList1(TreeNode cn) {
       string sRes = "";
@@ -169,6 +199,17 @@ namespace dbWorkshop {
       }
       return sRes;
     }
+    public string GetChildColListAll(TreeNode cn){
+      string sRes = ""; 
+      foreach(TreeNode tn in cn.Nodes){       
+        if(sRes=="") {
+          sRes=tn.Text.ParseString(" ()",0);
+        } else {
+          sRes=sRes+", "+tn.Text.ParseString(" ()",0);
+        }      
+      }
+      return sRes;
+    }
 
     public string GetSQLParamCallList(TreeNode cn) {
       string sRes = ""; string sFTT = "true";
@@ -185,6 +226,28 @@ namespace dbWorkshop {
       }
       return sRes;
     }
+    public string GetSQLDeclareVarColList(TreeNode rn) {
+      string sReturn = "";
+      foreach (TreeNode cn in rn.Nodes) {        
+        if (sReturn == ""){
+          sReturn= "  Declare @a"+cn.Text.ParseString(" ",0)+" "+cn.Text.ParseString(" ",1);
+        } else {
+          sReturn=sReturn + Environment.NewLine + "  Declare @a"+cn.Text.ParseString(" ",0)+" "+cn.Text.ParseString(" ",1);          
+        }
+      }
+      return sReturn;
+    }
+    public string GetSQLColumnVarList(TreeNode rn){
+      string sReturn = "";
+      foreach(TreeNode cn in rn.Nodes){
+        if(sReturn==""){
+          sReturn="@a"+cn.Text.ParseString(" ",0);
+        } else {
+          sReturn=sReturn+", @a"+cn.Text.ParseString(" ",0);
+        }
+      }
+      return sReturn;
+    }    
     public string GetAssignChildSQLColList(TreeNode cn) {
       string sRes = ""; string sFTT = "true";
       foreach(TreeNode tn in cn.Nodes) {
@@ -287,7 +350,7 @@ namespace dbWorkshop {
     }
 
     public string GetAbout() {
-      return "-- Generated on " + DateTime.Now.toStrDate() + " via dbWorkshop. " + Environment.NewLine;
+      return "--  Generated on " + DateTime.Now.toStrDate() + " via dbWorkshop " + Environment.NewLine;
     }
 
   }

@@ -183,10 +183,24 @@ namespace C0DEC0RE {
   }
 
   public class MMConMgr {
+    private string sDefaultName = "ConnectGroupAlpha";
+    private string sDefaultPass = "mConMgrBaseAlpha";
     public string FileName = "";
     public string sProvider = "System.Data.SqlClient";
     public FileVar ivFile;
     private KeyPair kpBaseKey;
+    public MMConMgr() {      
+      typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ConfigurationManager.ConnectionStrings, false);
+      ConfigurationManager.ConnectionStrings.Clear();
+      kpBaseKey = new KeyPair(KeyType.AES, sDefaultPass);
+      FileName = MMExt.MMConLocation() + "\\" + sDefaultName + ".cons";
+      if (!Directory.Exists(MMExt.MMConLocation() + "\\"))
+      {
+        Directory.CreateDirectory(MMExt.MMConLocation() + "\\");
+      }
+      ivFile = new FileVar(FileName);
+      Load();
+    }
     public MMConMgr(string sFileName, string sPassword)
     {
       typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ConfigurationManager.ConnectionStrings, false);

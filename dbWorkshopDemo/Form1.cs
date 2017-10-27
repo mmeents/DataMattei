@@ -19,7 +19,7 @@ namespace dbWorkshop
 
     public Form1(){
       InitializeComponent();
-      mCon = new MMConMgr("ConnectGroupAlpha", "mConMgrBaseAlpha");
+      mCon = new MMConMgr();
     }
 
     private void ReloadTree() {
@@ -66,38 +66,48 @@ namespace dbWorkshop
           e.Node.Nodes.Clear();
           DbConnectionInfo aDBI2 = new DbConnectionInfo(dbName, mCon.getConnectionStringSetting(dbName).ConnectionString);
           RCData d1 = new RCData(aDBI2);
-          
-          DataSet ds2 = d1.GetDataSet(" select rtrim(so.xtype) ObjType, so.name tbl, sc.name col, rtrim(st.name) ColType, sc.length ColLen from [" + sdb + "].dbo.sysobjects so "
-              + "  left outer join [" + sdb + "].dbo.syscolumns sc on so.id=sc.id "
-              + "  left outer join (select Name, min(UserType) UserType, xtype from [" + sdb + "].dbo.systypes Group by Name, xtype ) st on sc.UserType=st.UserType and sc.xtype=st.xtype "
-              + " where so.xtype  in ('U','V','P','FN') and (so.Name not like ('dt_%')) and (so.Name not like ('sys%')) and (st.Name is not null)  "
-              + "  order by so.xtype, so.name, sc.ColOrder  ");
+          try
+          {
+            DataSet ds2 = d1.GetDataSet(" select rtrim(so.xtype) ObjType, so.name tbl, sc.name col, rtrim(st.name) ColType, sc.length ColLen from [" + sdb + "].dbo.sysobjects so "
+                + "  left outer join [" + sdb + "].dbo.syscolumns sc on so.id=sc.id "
+                + "  left outer join (select Name, min(UserType) UserType, xtype from [" + sdb + "].dbo.systypes Group by Name, xtype ) st on sc.UserType=st.UserType and sc.xtype=st.xtype "
+                + " where so.xtype  in ('U','V','P','FN') and (so.Name not like ('dt_%')) and (so.Name not like ('sys%')) and (st.Name is not null)  "
+                + "  order by so.xtype, so.name, sc.ColOrder  ");
 
-          TreeNode ObjTypeNode = null, ObjItemNode = null;
-          string sLastObjType = "";
-          string sLastItem = "";
-          foreach(DataRow dr in ds2.Tables[0].Rows) {
-            string sObjtype = Convert.ToString(dr["ObjType"]);
-            string sItemName = Convert.ToString(dr["tbl"]);            
-            if((sObjtype == "P") || (sObjtype == "U") || (sObjtype == "V") || (sObjtype == "FN")) {
-              if(sLastObjType != sObjtype) {
-                ObjTypeNode = new TreeNode(GetObjectTypeNameFromCode(sObjtype),2,2);
-                e.Node.Nodes.Add(ObjTypeNode);
-                sLastObjType = sObjtype;
+            TreeNode ObjTypeNode = null, ObjItemNode = null;
+            string sLastObjType = "";
+            string sLastItem = "";
+            foreach (DataRow dr in ds2.Tables[0].Rows)
+            {
+              string sObjtype = Convert.ToString(dr["ObjType"]);
+              string sItemName = Convert.ToString(dr["tbl"]);
+              if ((sObjtype == "P") || (sObjtype == "U") || (sObjtype == "V") || (sObjtype == "FN"))
+              {
+                if (sLastObjType != sObjtype)
+                {
+                  ObjTypeNode = new TreeNode(GetObjectTypeNameFromCode(sObjtype), 2, 2);
+                  e.Node.Nodes.Add(ObjTypeNode);
+                  sLastObjType = sObjtype;
+                }
+                if ((sLastItem != sItemName) && (ObjTypeNode != null))
+                {
+                  Int32 iImageIndex = GetImageIndexFromCode(sObjtype);
+                  ObjItemNode = new TreeNode(sItemName, iImageIndex, iImageIndex);
+                  ObjTypeNode.Nodes.Add(ObjItemNode);
+                  sLastItem = sItemName;
+                }
+                if (ObjItemNode != null)
+                {
+                  string sVarLen = Convert.ToString(dr["ColLen"]);
+                  string sColType = Convert.ToString(dr["Coltype"]);
+                  string sCol = Convert.ToString(dr["Col"]);
+                  ObjItemNode.Nodes.Add(new TreeNode((sColType.Contains("char") ? sCol + " " + sColType + "(" + sVarLen + ")" : sCol + " " + sColType), 7, 7));
+                }
               }
-              if((sLastItem != sItemName)&&(ObjTypeNode!=null)) {
-                Int32 iImageIndex = GetImageIndexFromCode(sObjtype);
-                ObjItemNode = new TreeNode(sItemName,iImageIndex,iImageIndex);
-                ObjTypeNode.Nodes.Add(ObjItemNode);
-                sLastItem = sItemName;
-              }
-              if(ObjItemNode != null) {
-                string sVarLen = Convert.ToString(dr["ColLen"]);
-                string sColType = Convert.ToString(dr["Coltype"]);
-                string sCol = Convert.ToString(dr["Col"]);
-                ObjItemNode.Nodes.Add(new TreeNode((sColType.Contains("char") ? sCol + " " + sColType + "(" + sVarLen+")" : sCol + " " + sColType),7,7));                
-              }             
-            }         
+            }
+          }
+          catch (Exception ee) {
+            MessageBox.Show(this.Owner, ee.Message, "dbWorkshop Error");
           }
         break;
       }

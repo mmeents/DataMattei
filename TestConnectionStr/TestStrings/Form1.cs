@@ -16,7 +16,7 @@ namespace TestStrings {
   public partial class Form1:Form {
     public MMConMgr mConMgr;
     public Form1() {
-      mConMgr = new MMConMgr("ConnectGroupAlpha", "mConMgrBaseAlpha");
+      mConMgr = new MMConMgr();
       InitializeComponent();
     }
 
