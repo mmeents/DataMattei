@@ -161,6 +161,7 @@
       this.Controls.Add(this.textBox2);
       this.Controls.Add(this.textBox1);
       this.Name = "ConnectionDetail";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "ConnectionDetail";
       this.Shown += new System.EventHandler(this.ConnectionDetail_Shown);
       this.ResumeLayout(false);

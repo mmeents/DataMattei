@@ -48,9 +48,7 @@ C:\gitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.CoreCompileInput
 C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.exe.config
 C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.exe
 C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.pdb
-C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\BlockMattei.dll
 C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\C0DEC0RE.dll
-C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\BlockMattei.pdb
 C:\gitHub\DataMattei\dbWorkshopDemo\bin\Debug\C0DEC0RE.pdb
 C:\gitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.exe
 C:\gitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.pdb

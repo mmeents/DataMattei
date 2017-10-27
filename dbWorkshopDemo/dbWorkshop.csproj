@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BlockMattei">
-      <HintPath>..\BlockMattei\bin\Debug\BlockMattei.dll</HintPath>
-    </Reference>
     <Reference Include="C0DEC0RE">
       <HintPath>..\C0DEC0RE\bin\Debug\C0DEC0RE.dll</HintPath>
     </Reference>
