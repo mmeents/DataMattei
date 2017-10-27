@@ -9,33 +9,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using C0DEC0RE;
-using BlockMattei;
 
 namespace dbWorkshop
 {
   public partial class Form1:Form{
 
-    IniVar ivSettings;
     Dictionary<string,DbConnectionInfo> dCon;
+    MMConMgr mCon;
 
     public Form1(){
       InitializeComponent();
+      mCon = new MMConMgr("ConnectGroupAlpha", "mConMgrBaseAlpha");
+    }
+
+    private void ReloadTree() {
+      tvMain.Nodes.Clear();
+      foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
+        DbConnectionInfo aCI = new DbConnectionInfo(sx.Name, sx.ConnectionString);
+        TreeNode aNode = new TreeNode(sx.Name + ":" + aCI.ServerName, 0, 0);
+        TreeNode aTables = new TreeNode("Placeholder", 1, 1);
+        aNode.Nodes.Add(aTables);
+        tvMain.Nodes.Add(aNode);
+      }
     }
     
     private void Form1_Shown(object sender,EventArgs e) {
-      dCon = new Dictionary<string,DbConnectionInfo>();       
-      foreach(ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings) {
-        if((!dCon.Keys.Contains(sx.Name))&&(sx.Name != "LocalSqlServer")){
-          dCon.Add(sx.Name, new DbConnectionInfo(sx.Name,sx.ConnectionString));
-        }
-      }
-
-      foreach(string dbName in dCon.Keys) {        
-        TreeNode aNode = new TreeNode(dbName+":"+dCon[dbName].ServerName,0,0);
-        TreeNode aTables = new TreeNode("Tables",1,1);        
-        aNode.Nodes.Add(aTables);        
-        tvMain.Nodes.Add(aNode);
-      }
+      ReloadTree();
     }
 
     private void tvMain_BeforeExpand(object sender,TreeViewCancelEventArgs e) {
@@ -45,7 +44,8 @@ namespace dbWorkshop
         case 0:   // server Level
           dbName = e.Node.Text.ParseString(":",0);
           e.Node.Nodes.Clear();
-          RCData d0 = new RCData(dCon[dbName]);
+          DbConnectionInfo aDBI1 = new DbConnectionInfo(dbName, mCon.getConnectionStringSetting(dbName).ConnectionString);
+          RCData d0 = new RCData(aDBI1);
           try {
             DataSet ds1 = d0.GetDataSet("select name db from master.dbo.sysdatabases where (dbid > 2) and (not (name in ('model','msdb')))  order by name");
 
@@ -64,7 +64,8 @@ namespace dbWorkshop
           dbName = e.Node.Parent.Text.ParseString(":",0);
           string sdb = e.Node.Text;        ;
           e.Node.Nodes.Clear();
-          RCData d1 = new RCData(dCon[dbName]);
+          DbConnectionInfo aDBI2 = new DbConnectionInfo(dbName, mCon.getConnectionStringSetting(dbName).ConnectionString);
+          RCData d1 = new RCData(aDBI2);
           
           DataSet ds2 = d1.GetDataSet(" select rtrim(so.xtype) ObjType, so.name tbl, sc.name col, rtrim(st.name) ColType, sc.length ColLen from [" + sdb + "].dbo.sysobjects so "
               + "  left outer join [" + sdb + "].dbo.syscolumns sc on so.id=sc.id "
@@ -105,6 +106,39 @@ namespace dbWorkshop
     private void tvMain_AfterSelect(object sender,TreeViewEventArgs e) {
       label1.Text = "Focused Item: "+ e.Node.Text;
       tvMain_OnActiveSelectionChange(e.Node);
+      if (e.Node.Level == 0){
+        addConnectionToolStripMenuItem.Enabled = true;
+        dropConnectionToolStripMenuItem.Enabled = true;
+        editConnectionToolStripMenuItem.Enabled = true;
+      }else {
+        addConnectionToolStripMenuItem.Enabled = true;
+        dropConnectionToolStripMenuItem.Enabled = false;
+        editConnectionToolStripMenuItem.Enabled = false;
+      }
+    }
+
+    private void addConnectionToolStripMenuItem_Click(object sender, EventArgs e){
+      if (mCon.Edit("")) {
+        mCon.Write();
+        ReloadTree();
+      }
+    }
+
+    private void dropConnectionToolStripMenuItem_Click(object sender, EventArgs e){
+      string dbName = tvMain.SelectedNode.Text.ParseString(":", 0);
+      ConnectionStringSettings aCSS = mCon.getConnectionStringSetting(dbName);
+      ConfigurationManager.ConnectionStrings.Remove(aCSS);
+      mCon.Write();
+      ReloadTree();
+    }
+
+    private void editConnectionToolStripMenuItem_Click(object sender, EventArgs e){
+      string dbName = tvMain.SelectedNode.Text.ParseString(":",0);
+      ConnectionStringSettings aCSS = mCon.getConnectionStringSetting(dbName);
+      if (mCon.Edit(dbName)) {
+        mCon.Write();
+        ReloadTree();
+      }
     }
   }
 }

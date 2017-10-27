@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using C0DEC0RE;
-using BlockMattei;
 
 namespace dbWorkshop {
   public partial class Form1:Form {
@@ -86,6 +85,7 @@ namespace dbWorkshop {
       edSQL.Text = GetHelpText(tnStProc);
       string sDBName = tnStProc.Parent.Parent.Parent.Text.ParseString(":",0);
       string a = "";
+      string b = "";
       for(Int32 i = 0;i < tnStProc.Nodes.Count;i++) {
         if(a == "") {
           a = tnStProc.Nodes[i].Text.ParseString(" ",0);
@@ -256,7 +256,6 @@ namespace dbWorkshop {
     }
 
     public string SQLColumnToParamDBType(string s) {
-      Int32 i = 0;
       string sresult = "";
       string w = s.ToLower().ParseString(" ()",1);
       if(w == "char") { sresult = "AnsiString";

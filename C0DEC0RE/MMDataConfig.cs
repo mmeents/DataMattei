@@ -16,7 +16,7 @@ namespace C0DEC0RE {
 		private string m_password=String.Empty;
 		private string m_serverName=String.Empty;
 		private string m_initialCatalog=String.Empty;
-		private bool m_useIntegratedSecurity=true;
+		private bool m_useIntegratedSecurity=false;
 		public DbConnectionInfo()	{			
 		}
 		public DbConnectionInfo(string connectionName, string connectionString) {

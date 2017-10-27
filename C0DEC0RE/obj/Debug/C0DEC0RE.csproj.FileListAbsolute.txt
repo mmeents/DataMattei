@@ -35,3 +35,5 @@ C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.C
 C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
 C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
 C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
+C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
+C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.ConnectionDetail.resources
