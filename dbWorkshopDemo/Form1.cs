@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using C0DEC0RE;
+using Ionic.Zip;
 
 namespace dbWorkshop
 {
@@ -149,6 +150,21 @@ namespace dbWorkshop
         mCon.Write();
         ReloadTree();
       }
+    }
+
+    private void button1_Click(object sender,EventArgs e){
+            
+      byte[] aba = Ionic.Zlib.ZlibStream.CompressString("This is a test of the compress function this is only a test. ");
+      string s = aba.toHexStr();
+      edScratch.Text = s;
+      edScratch.Text = Ionic.Zlib.ZlibStream.UncompressString(s.toByteArray());
+
+//      using(ZipFile zf = new ZipFile())
+//      {
+//        zf.AddFile(sFileToZip,"");      
+//        zf.Save(sFileZipAs);
+//      }
+
     }
   }
 }

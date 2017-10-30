@@ -64,3 +64,4 @@ C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.GenerateRe
 C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.CoreCompileInputs.cache
 C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.exe
 C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.pdb
+C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\bin\Debug\Ionic.Zip.dll
