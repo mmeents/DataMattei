@@ -1,0 +1,13 @@
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.csprojResolveAssemblyReference.cache
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.Form1.resources
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.Properties.Resources.resources
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.csproj.GenerateResource.Cache
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.csproj.CoreCompileInputs.cache
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\LockBoxViewer.exe.config
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\LockBoxViewer.exe
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\LockBoxViewer.pdb
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\C0DEC0RE.dll
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\Ionic.Zip.dll
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\C0DEC0RE.pdb
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.exe
+C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.pdb

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 
@@ -167,6 +168,17 @@ namespace C0DEC0RE {
     }
 
     #endregion
+
+    public static Stream ToStream(this string Text) {      
+      return new MemoryStream(Encoding.UTF8.GetBytes(Text));
+    }
+
+    public static string toString(this Stream stream) {      
+      stream.Seek(0,SeekOrigin.Begin);
+      using(StreamReader reader = new StreamReader(stream,Encoding.UTF8)) {
+        return reader.ReadToEnd();
+      }      
+    }
 
     public static string toBase64EncodedStr(this string Text)
     {
