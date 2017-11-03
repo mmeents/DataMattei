@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\TestConnectionStr\\TestStrings"
+    "\\LockBox",
+    "\\LockBox\\LockBoxViewer"
   ],
-  "SelectedNode": "\\LockBox",
+  "SelectedNode": "\\LockBox\\LockBoxViewer\\LockBoxViewer.sln",
   "PreviewInSolutionExplorer": false
 }

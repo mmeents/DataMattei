@@ -27,10 +27,15 @@ namespace LockBoxViewer
     private void toolStripMenuItem1_Click(object sender,EventArgs e) {
       // open LockBox.
       odMain.FileName = "*.lxb";
+      string sPassword = "";
       if(odMain.ShowDialog()==DialogResult.OK) {
         string sFile = odMain.FileName;
-        ox = new LockBox(sFile,"r2d2");
-        buildTree();
+        PasswordDialog pd = new PasswordDialog();
+        if(pd.ShowDialog()==DialogResult.OK) {
+          sPassword = pd.Password;
+          ox = new LockBox(sFile,sPassword);
+          buildTree();
+        }
       }
     }
 
@@ -90,7 +95,8 @@ namespace LockBoxViewer
             string sCypherChunk = ivFile["x"+iChunk.ToString()];
             Chunks.Add(sCypherChunk);
             string sChunk = kpFileKey.NextKeyPair(iChunk).toDecryptAES(sCypherChunk);
-            using(ZipFile z = ZipFile.Read(sChunk.ToStream())) {
+            MemoryStream zipMS = new MemoryStream(sChunk.toByteArray());
+            using(ZipFile z = ZipFile.Read(zipMS)) {
               foreach(ZipEntry ze in z) {
                 string sFileName = ze.FileName;
                 Files.Add(iChunk.ToString()+":"+ sFileName);
@@ -114,21 +120,25 @@ namespace LockBoxViewer
 
       Int32 iFileCount = files.Count();
       if(iFileCount > 0) {
-        using(ZipFile zLoader = new ZipFile()){
-          zLoader.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
-          MemoryStream aStr = new MemoryStream();          
-          Int32 iNextChunk = Chunks.Count+1;
-          foreach(string sFileName in files){
-            Files.Add(iNextChunk.ToString()+":"+sFileName);
-            zLoader.AddFile(sFileName,Path.GetDirectoryName(sFileName)); 
+        
+        using(ZipFile zLoader = new ZipFile()) {
+            
+            zLoader.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
+            Int32 iNextChunk = Chunks.Count+1;
+            foreach(string sFileName in files)
+            {
+              Files.Add(iNextChunk.ToString()+":"+sFileName);
+              zLoader.AddFile(sFileName,Path.GetDirectoryName(sFileName));
               // zLoader.AddFile(sFileName,Path.GetDirectoryName(sFileName));   // 
-          }          
-          zLoader.Save(aStr);
-          string sChunk = aStr.toString();          
-          aStr.Close();
-          string sCyperChunk = kpFileKey.NextKeyPair(iNextChunk).toAESCipher(sChunk);
-          Chunks.Add(sCyperChunk);
-        }
+            }
+            string sZipName = Path.GetTempFileName();
+            zLoader.Save(sZipName);
+            byte[] aBuf = File.ReadAllBytes(sZipName);
+            string sChunk = aBuf.toHexStr();
+            string sCyperChunk = kpFileKey.NextKeyPair(iNextChunk).toAESCipher(sChunk);
+            Chunks.Add(sCyperChunk);
+          }
+        
         Write();
       }
     }

@@ -11,3 +11,16 @@ C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\Ionic.Zip.dll
 C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\C0DEC0RE.pdb
 C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.exe
 C:\MMREF\GitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.pdb
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\LockBoxViewer.exe.config
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\LockBoxViewer.exe
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\LockBoxViewer.pdb
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\C0DEC0RE.dll
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\bin\Debug\Ionic.Zip.dll
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.csprojResolveAssemblyReference.cache
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.Form1.resources
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.Properties.Resources.resources
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.csproj.GenerateResource.Cache
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.csproj.CoreCompileInputs.cache
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.exe
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.pdb
+C:\gitHub\DataMattei\LockBox\LockBoxViewer\obj\Debug\LockBoxViewer.PasswordDialog.resources
