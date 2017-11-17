@@ -1,38 +1,9 @@
-D:\Dev\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-D:\Dev\C0DEC0RE\bin\Debug\C0DEC0RE.dll
-D:\Dev\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-D:\Dev\C0DEC0RE\obj\Debug\C0DEC0RE.dll
-D:\Dev\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
-D:\Dev\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
-D:\Dev\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
-C:\A Projects\C0DEC0RE\bin\Debug\C0DEC0RE.dll
-C:\A Projects\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-C:\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-C:\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
-C:\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.dll
-C:\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
-C:\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
-D:\Dev\A Projects\C0DEC0RE\bin\Debug\C0DEC0RE.dll
-D:\Dev\A Projects\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-D:\Dev\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-D:\Dev\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
-D:\Dev\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.dll
-D:\Dev\A Projects\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
-D:\Dev\A Projects\C0DEC0RE\bin\Debug\C0DEC0RE.dll.CodeAnalysisLog.xml
-D:\Dev\A Projects\C0DEC0RE\bin\Debug\C0DEC0RE.dll.lastcodeanalysissucceeded
-C:\gitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.dll
-C:\gitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.dll
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.ConnectionDetail.resources
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
-C:\MMREF\GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
+C:\Reference\Github\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.dll
+C:\Reference\Github\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.ConnectionDetail.resources
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb

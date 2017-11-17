@@ -29,9 +29,7 @@ namespace C0DEC0RE {
 		}		
 		public string ConnectionName {
 			get	{	return m_connectionName; } 
-			set { if (value==null){throw new ArgumentNullException(); }
-				m_connectionName=value;
-			}
+			set { m_connectionName=value??throw new ArgumentNullException();}
 		}
 
 		public string ConnectionString{
@@ -222,13 +220,9 @@ namespace C0DEC0RE {
         ivFile["ConnectionCount"] = "0";
         s = "0";
       }
-      Int32 iConCount = 0;
-      if (Int32.TryParse(s, out iConCount))
-      {
-        if (iConCount > 0)
-        {
-          for (Int32 i = 1; i <= iConCount; i++)
-          {
+      if(Int32.TryParse(s, out int iConCount)){
+        if(iConCount > 0) {
+          for(Int32 i = 1; i <= iConCount; i++) {
             string sConName = ivFile["Con" + i.ToString() + "Name"];
             string sConConnection = kpBaseKey.NextKeyPair(i).toDecryptAES(ivFile["Con" + i.ToString() + "String"]);
             string sConProvider = ivFile["Con" + i.ToString() + "Provider"];
@@ -256,7 +250,7 @@ namespace C0DEC0RE {
       }
     }
     public bool Edit(string sConName) {            
-      ConnectionStringSettings cx = getConnectionStringSetting(sConName);      
+      ConnectionStringSettings cx = GetConnectionStringSetting(sConName);      
       ConnectionDetail aCD = new ConnectionDetail();
       if (cx!=null){
         aCD.dbCI = new DbConnectionInfo(sConName, cx.ConnectionString);
@@ -278,7 +272,7 @@ namespace C0DEC0RE {
       }
       return bOK;
     }
-    public ConnectionStringSettings getConnectionStringSetting(string sConName){
+    public ConnectionStringSettings GetConnectionStringSetting(string sConName){
       ConnectionStringSettings cs = null;
       foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
         if (sx.Name == sConName) {          
@@ -289,5 +283,5 @@ namespace C0DEC0RE {
       return cs;      
     }
   }
-  
+ 
 }

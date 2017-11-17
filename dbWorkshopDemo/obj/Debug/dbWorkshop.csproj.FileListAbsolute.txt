@@ -65,3 +65,15 @@ C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.CoreCompil
 C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.exe
 C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.pdb
 C:\MMREF\GitHub\DataMattei\dbWorkshopDemo\bin\Debug\Ionic.Zip.dll
+C:\Reference\Github\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.exe.config
+C:\Reference\Github\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.exe
+C:\Reference\Github\DataMattei\dbWorkshopDemo\bin\Debug\dbWorkshop.pdb
+C:\Reference\Github\DataMattei\dbWorkshopDemo\bin\Debug\C0DEC0RE.dll
+C:\Reference\Github\DataMattei\dbWorkshopDemo\bin\Debug\Ionic.Zip.dll
+C:\Reference\Github\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csprojResolveAssemblyReference.cache
+C:\Reference\Github\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.Form1.resources
+C:\Reference\Github\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.Properties.Resources.resources
+C:\Reference\Github\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.GenerateResource.Cache
+C:\Reference\Github\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.csproj.CoreCompileInputs.cache
+C:\Reference\Github\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.exe
+C:\Reference\Github\DataMattei\dbWorkshopDemo\obj\Debug\dbWorkshop.pdb

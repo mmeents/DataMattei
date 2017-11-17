@@ -133,6 +133,12 @@ namespace C0DEC0RE {
 
     #endregion
 
+    #region Object
+    public static string toString(this object aObj) {      
+      return Convert.ToString(aObj);
+    }
+    #endregion 
+
     #region Strings
 
     #region Parse strings

@@ -25,8 +25,8 @@ namespace C0DEC0RE {
       UserManager um = new UserManager();
       MMStrUtl x = new MMStrUtl();      
       string userName = hc.User.Identity.Name;
-      if (MMStrUtl.ParseCount(userName, "\\") == 2) {
-        flu = um.GetUser(MMStrUtl.ParseString(userName, "\\", 1)); // since first part is domain in windows
+      if (x.ParseCount(userName, "\\") == 2) {
+        flu = um.GetUser(x.ParseString(userName, "\\", 1)); // since first part is domain in windows
       } else {
         flu = um.GetUser(userName);  // using forms authentication
       }   
@@ -45,6 +45,20 @@ namespace C0DEC0RE {
     public User ActiveUser { get { return flu; } set { flu = value; } }
   }
 
+  public class MMTrace {
+    public void Trace(Int32 UserID, string TraceType, string TraceDetail) {
+      MMData d = new MMData();
+      try {
+        DataSet Log = d.GetStProcDataSet("PD", "exec dbo.sp_AddTrace @aT_U_ID, @aT_Type, @aT_Details",
+          new StProcParam[] {
+          new StProcParam("aT_U_ID", DbType.Int32, UserID),          
+          new StProcParam("aT_Type", DbType.String, TraceType),
+          new StProcParam("aT_Details", DbType.String, TraceDetail)
+        });
+      } catch {  }      
+    }
+  }
+
   public class User {
     private string pDomain = string.Empty;
     private string pLoginName = string.Empty;
@@ -54,10 +68,12 @@ namespace C0DEC0RE {
     private string pEmail = string.Empty;
     private string pSalter = string.Empty;
     private string pNotes = string.Empty;
-    private string pUserID = string.Empty;
+    private Int32 pUserID = 0;
+    private Int32 pU_C_ID = 0;
     private bool pIsActive = true;
     DateTime pPasswordExpires = DateTime.MaxValue;
-    private bool pIsUserAdmin = true;    
+    private bool pIsUserAdmin = false;
+    private bool pIsInhouseStaff = false;
     private bool pRecDirty = false;
     private string getSALT() {
       if (pSalter == string.Empty) {
@@ -65,14 +81,7 @@ namespace C0DEC0RE {
         pSalter = salter.ToString();
       }
       return pSalter;
-    }
-    private string getUserID() {
-      if (pUserID == string.Empty) {
-        Guid U_ID = Guid.NewGuid();
-        pUserID = U_ID.ToString();
-      }
-      return pUserID;
-    }
+    }    
     public void EncodePassword(string pwd) {
       if (pSalter == string.Empty) { getSALT(); };
       MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
@@ -86,45 +95,87 @@ namespace C0DEC0RE {
     public string LoginName { get { return this.pLoginName; } set { this.pLoginName = value; RecDirty = true; } }
     public string Name { get { return this.pName; } set { this.pName = value; RecDirty = true; } }
     public string Password { get { return this.pPassword; } set { pPassword = value; RecDirty = true; } }
-    public bool IsActive { get { return pIsActive; } set { pIsActive = value; } }
+    public bool IsActive { get { return pIsActive; } set { pIsActive = value; RecDirty = true; } }
     public string Email { get { return pEmail; } set { pEmail = value; RecDirty = true; } }
-    public string Salter { get { return getSALT(); } set { pSalter = value; } }
-    public string UserID { get { return getUserID(); } set { pUserID = value; } }
+    public string Salter { get { return getSALT(); } set { pSalter = value; RecDirty = true;} }
+    public Int32 UserID { get { return pUserID; } set { pUserID = value; RecDirty = true; } }
+    public Int32 U_C_ID { get { return pU_C_ID; } set { pU_C_ID = value; RecDirty = true; } }
     public DateTime PasswordExpires { get { return pPasswordExpires; } set { pPasswordExpires = value; } }    
     public string StaffName { get { return pStaffName; } set { pStaffName = value; } }    
-    public bool IsUserAdmin { get { return pIsUserAdmin; } set { pIsUserAdmin = value; RecDirty = true; } }    
+    public bool IsUserAdmin { get { return pIsUserAdmin; } set { pIsUserAdmin = value; RecDirty = true; } }
+    public bool IsInhouseStaff { get { return pIsInhouseStaff; } set { pIsInhouseStaff = value; RecDirty = true; } }    
     public bool RecDirty { get { return pRecDirty; } set { pRecDirty = value; } }
+    public string ClientName { get {
+      MMData d = new MMData();
+      string sClientName = "";
+      if (U_C_ID != 0) {
+        try {
+          DataSet x = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), "select C_Name from dbo.vw_Client where C_ID = @aCID ", 
+            new StProcParam[] { new StProcParam("@aCID", DbType.Int32, U_C_ID) });
+          if ((x.Tables.Count == 1) & (x.Tables[0].Rows.Count == 1)) {
+            sClientName = Convert.ToString(x.Tables[0].Rows[0]["C_Name"]);
+          }
+        } catch { }
+      }
+      return sClientName; 
+    }}    
   }
 
   public sealed class UnknownUser : User { }
 
   public sealed class UserManager {
+  #region string constants 
     private static readonly string policy = "LocalPolicy";
     public static readonly string SelectUser =
-      "SELECT U_ID, U_Login, U_PASSWORD, U_Name, U_Email, U_SALT, U_IsUserAdmin, U_Domain " +
+      "SELECT U_ID, U_C_ID, U_Login, U_PASSWORD, U_Name, U_Email, U_SALT, U_IsUserAdmin, U_IsInhouseStaff, U_Domain, U_IsActive " +
       "FROM Users U ";
+    public static readonly string StrCreateUserTable =
+      "CREATE TABLE [dbo].[Users]([U_ID] [int] IDENTITY(1,1) NOT NULL,[U_C_ID] [int] NOT NULL,[U_Login] [varchar](255) NOT NULL,[U_Password] [varchar](500) NOT NULL,"+Environment.NewLine+
+      "  [U_Name] [varchar](500) NOT NULL,[U_Email] [varchar](500) NOT NULL,	[U_SALT] [varchar](255) NOT NULL,	[U_IsUserAdmin] [bit] DEFAULT ((0)) NOT NULL,	[U_IsInhouseStaff] [bit] DEFAULT ((0)) NOT NULL,"+Environment.NewLine+
+      "  [U_Domain] [varchar](50) NULL,	[U_IsActive] [bit] DEFAULT ((1)) NOT NULL, CONSTRAINT [PK_Users_U_ID] PRIMARY KEY CLUSTERED (	[U_ID] ASC) "+Environment.NewLine+
+      "    WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]"+Environment.NewLine+
+      ") ON [PRIMARY] ";
+    public static readonly string StrCreateAddUpdateStoredProc =
+      "Create Procedure[dbo].[sp_AddUpdateUsers00] ("+Environment.NewLine+
+      " @aU_ID int, @aU_C_ID int, @aU_Login varchar(255), @aU_Password varchar(500), @aU_Name varchar(500), @aU_Email varchar(500), @aU_SALT varchar(255), @aU_IsUserAdmin bit, @aU_IsInhouseStaff bit, @aU_Domain varchar(50), @aU_IsActive bit "+Environment.NewLine+
+      ") as "+Environment.NewLine+
+      "  set nocount on"+Environment.NewLine+
+      "  declare @a int set @a = isnull((select U_ID from dbo.Users where (U_ID = @aU_ID)), 0)      "+Environment.NewLine+
+      "  if (@a = 0) begin"+Environment.NewLine+
+      "    Insert into dbo.Users(U_C_ID, U_Login, U_Password, U_Name, U_Email, U_SALT, U_IsUserAdmin, U_IsInhouseStaff, U_Domain, U_IsActive"+Environment.NewLine+
+      "    ) values(@aU_C_ID, @aU_Login, @aU_Password, @aU_Name, @aU_Email, @aU_SALT, @aU_IsUserAdmin, @aU_IsInhouseStaff, @aU_Domain, @aU_IsActive)"+Environment.NewLine+
+      "    set @a = @@IDENTITY"+Environment.NewLine+
+      "  end else begin"+Environment.NewLine+
+      "    Update dbo.Users set"+Environment.NewLine+
+      "      U_C_ID = @aU_C_ID, U_Login = @aU_Login, U_Password = @aU_Password, U_Name = @aU_Name, U_Email = @aU_Email, U_SALT = @aU_SALT, "+Environment.NewLine+
+      "    U_IsUserAdmin = @aU_IsUserAdmin, U_IsInhouseStaff = @aU_IsInhouseStaff, U_Domain = @aU_Domain, U_IsActive = @aU_IsActive"+Environment.NewLine+
+      "    where U_ID = @aU_ID"+Environment.NewLine+
+      "  end"+Environment.NewLine+
+      "  select @aU_ID U_ID"+Environment.NewLine+
+      "return";
+  #endregion
     public void UserUpdate(User toUpdate) {
-      MMData d = new MMData();
-      Int32 iU_ID = -1;
-      try { iU_ID = Convert.ToInt32(toUpdate.UserID); } catch (Exception e) {  
-      }
-      DataSet ud = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), "exec dbo.sp_AddUpdateUsers @aU_ID, @aU_Login, @aU_Password, @aU_Name, @aU_Email, @aU_SALT, @aU_IsUserAdmin, @aU_Domain", 
+      MMData d = new MMData();      
+      DataSet ud = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), "exec dbo.sp_AddUpdateUsers00 @aU_ID, @aU_C_ID, @aU_Login, @aU_Password, @aU_Name, @aU_Email, @aU_SALT, @aU_IsUserAdmin, @aU_IsInhouseStaff, @aU_Domain, @aU_IsActive ", 
         new StProcParam[] {
-        new StProcParam("@aU_ID", DbType.String, iU_ID),
+        new StProcParam("@aU_ID", DbType.Int32, toUpdate.UserID),
+        new StProcParam("@aU_C_ID", DbType.Int32, toUpdate.U_C_ID),
         new StProcParam("@aU_Login", DbType.String, toUpdate.LoginName),
         new StProcParam("@aU_Password", DbType.String, toUpdate.Password),
         new StProcParam("@aU_Name", DbType.String, toUpdate.Name),
         new StProcParam("@aU_Email", DbType.String, toUpdate.Email),
         new StProcParam("@aU_SALT", DbType.String, toUpdate.Salter),
         new StProcParam("@aU_IsUserAdmin", DbType.Boolean, toUpdate.IsUserAdmin),        
-        new StProcParam("@aU_Domain", DbType.String, toUpdate.Domain)
+        new StProcParam("@aU_IsInhouseStaff", DbType.Boolean, toUpdate.IsInhouseStaff),        
+        new StProcParam("@aU_Domain", DbType.String, toUpdate.Domain),
+        new StProcParam("@aU_IsActive", DbType.Boolean, toUpdate.IsActive)
       });    
     }
     public User GetUser(string userName) {
       User user = new UnknownUser();
       MMData d = new MMData();        
       try {
-          DataSet x = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), SelectUser + " WHERE (U_Login = @aLogin)",
+          DataSet x = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), SelectUser + " WHERE (U_Login = @aLogin) and (U_IsActive=1)",
           new StProcParam[] { new StProcParam("@aLogin", DbType.AnsiString, userName) });
         if ((x.Tables.Count == 1) & (x.Tables[0].Rows.Count == 1)) {
           user = BuildUserFromRow(x.Tables[0].Rows[0]);
@@ -136,7 +187,7 @@ namespace C0DEC0RE {
       User user = new UnknownUser();
       MMData d = new MMData();
       try {
-          DataSet x = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), SelectUser + "WHERE (U_ID = cast( @aID as uniqueidentifier ))",
+          DataSet x = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), SelectUser + "WHERE (U_ID = cast( @aID as int ))",
           new StProcParam[] { new StProcParam("@aID", DbType.String, userID) });
         if ((x.Tables.Count == 1) & (x.Tables[0].Rows.Count == 1)) {
           user = BuildUserFromRow(x.Tables[0].Rows[0]);
@@ -146,31 +197,34 @@ namespace C0DEC0RE {
     }
     private User BuildUserFromRow(DataRow userRecord) {      
       User user = new User();
-      user.UserID = userRecord["U_ID"].ToString();
+      user.IsActive = Convert.ToBoolean(userRecord["U_IsActive"]);
+      user.UserID = Convert.ToInt32(userRecord["U_ID"]);
+      user.U_C_ID = Convert.ToInt32(userRecord["U_C_ID"]);
       user.Domain = userRecord["U_Domain"].ToString();
       user.LoginName = userRecord["U_Login"].ToString();
       user.Password = userRecord["U_PASSWORD"].ToString();
       user.Name = userRecord["U_Name"].ToString();
       user.Email = userRecord["U_Email"].ToString();
       user.Salter = userRecord["U_Salt"].ToString();
-      user.IsUserAdmin = Convert.ToBoolean(userRecord["U_IsUserAdmin"]);      
+      user.IsUserAdmin = Convert.ToBoolean(userRecord["U_IsUserAdmin"]);
+      user.IsInhouseStaff = Convert.ToBoolean(userRecord["U_IsInhouseStaff"]);      
       user.PasswordExpires = DateTime.Now.AddYears(20);
-      user.RecDirty = false;
+      user.RecDirty = false;      
       return user;
     }
     public bool Authenticate(string userName, string password) {
       bool authented = false;
       User user = GetUser(userName);
-      if (user is UnknownUser) {
+      if ((user is UnknownUser)|| (!user.IsActive)) {
         return authented;
-      } else {
+      } else {        
         string encrPassword = user.Password;
         MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
         Byte[] hashedBytes;
         UTF8Encoding encoder = new UTF8Encoding();
         hashedBytes = md5Hasher.ComputeHash(encoder.GetBytes(password + user.Salter));
         string reHashedPassword = BitConverter.ToString(hashedBytes);
-        authented = reHashedPassword == encrPassword ? true : false;
+        authented = reHashedPassword == encrPassword ? true : false;        
       }
       return authented;
     }   
@@ -178,6 +232,14 @@ namespace C0DEC0RE {
       int roleID = -1;   
       return roleID;
     }
+
+    public void EnsureUserObject(string SqlConStrName) {
+
+      string sSQL = "";
+      
+
+
+    } 
   }
  
   public class LocalRoleProvider : RoleProvider {

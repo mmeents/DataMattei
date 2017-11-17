@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\LockBox",
-    "\\LockBox\\LockBoxViewer"
+    "\\LockBox\\LockBoxViewer",
+    "\\TestConnectionStr\\TestStrings\\bin\\Debug"
   ],
   "SelectedNode": "\\LockBox\\LockBoxViewer\\LockBoxViewer.sln",
   "PreviewInSolutionExplorer": false
