@@ -45,8 +45,8 @@ namespace dbWorkshop
         case 0:   // server Level
           dbName = e.Node.Text.ParseString(":",0);
           e.Node.Nodes.Clear();
-          DbConnectionInfo aDBI1 = new DbConnectionInfo(dbName, mCon.getConnectionStringSetting(dbName).ConnectionString);
-          RCData d0 = new RCData(aDBI1);
+          DbConnectionInfo aDBI1 = new DbConnectionInfo(dbName, mCon.GetConnectionStringSetting(dbName).ConnectionString);
+          RCData d0 = new RCData(aDBI1);                               
           try {
             DataSet ds1 = d0.GetDataSet("select name db from master.dbo.sysdatabases where (dbid > 2) and (not (name in ('model','msdb')))  order by name");
 
@@ -65,7 +65,7 @@ namespace dbWorkshop
           dbName = e.Node.Parent.Text.ParseString(":",0);
           string sdb = e.Node.Text;        ;
           e.Node.Nodes.Clear();
-          DbConnectionInfo aDBI2 = new DbConnectionInfo(dbName, mCon.getConnectionStringSetting(dbName).ConnectionString);
+          DbConnectionInfo aDBI2 = new DbConnectionInfo(dbName, mCon.GetConnectionStringSetting(dbName).ConnectionString);
           RCData d1 = new RCData(aDBI2);
           try
           {
@@ -137,7 +137,7 @@ namespace dbWorkshop
 
     private void dropConnectionToolStripMenuItem_Click(object sender, EventArgs e){
       string dbName = tvMain.SelectedNode.Text.ParseString(":", 0);
-      ConnectionStringSettings aCSS = mCon.getConnectionStringSetting(dbName);
+      ConnectionStringSettings aCSS = mCon.GetConnectionStringSetting(dbName);
       ConfigurationManager.ConnectionStrings.Remove(aCSS);
       mCon.Write();
       ReloadTree();
@@ -145,7 +145,7 @@ namespace dbWorkshop
 
     private void editConnectionToolStripMenuItem_Click(object sender, EventArgs e){
       string dbName = tvMain.SelectedNode.Text.ParseString(":",0);
-      ConnectionStringSettings aCSS = mCon.getConnectionStringSetting(dbName);
+      ConnectionStringSettings aCSS = mCon.GetConnectionStringSetting(dbName);
       if (mCon.Edit(dbName)) {
         mCon.Write();
         ReloadTree();

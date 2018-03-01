@@ -6,3 +6,4 @@ C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResour
 C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
 C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
 C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
+C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
