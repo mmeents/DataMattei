@@ -137,6 +137,21 @@ namespace C0DEC0RE {
     public static string toString(this object aObj) {      
       return Convert.ToString(aObj);
     }
+    public static Int32 toInt32(this object aObj) {     
+      if(Int32.TryParse(aObj.toString(), out Int32 r)) {
+        return r;
+      } else {
+        return -1;
+      }      
+    }
+    public static string toDollarStr(this object aObj){ 
+      string sResult = "$0.00";
+      decimal dValue = 0; 
+      if ( decimal.TryParse( aObj.toString(), out dValue)){ 
+        sResult = "$"+dValue.toStr2();
+      } 
+      return sResult;
+    }
     #endregion 
 
     #region Strings
@@ -183,6 +198,17 @@ namespace C0DEC0RE {
       stream.Seek(0,SeekOrigin.Begin);
       using(StreamReader reader = new StreamReader(stream,Encoding.UTF8)) {
         return reader.ReadToEnd();
+      }      
+    }
+
+    public static string toHashSHA512(this string Text) {      
+      var bytes = Encoding.UTF8.GetBytes(Text);
+      using(var hash = SHA512.Create()) {
+        var hashedInputBytes = hash.ComputeHash(bytes);        
+        var hashedInputStringBuilder = new StringBuilder(128);
+        foreach(var b in hashedInputBytes)
+          hashedInputStringBuilder.Append(b.ToString("X2"));
+        return hashedInputStringBuilder.ToString();
       }      
     }
 
@@ -267,6 +293,10 @@ namespace C0DEC0RE {
 
     #endregion
 
+    #region List of Strings
+
+    #endregion 
+
     #endregion
 
     #region Dates and Times
@@ -288,6 +318,10 @@ namespace C0DEC0RE {
     }
     public static string ToStrDateMM(this DateTime x) {
       string y = String.Format(CultureInfo.InvariantCulture, "{0:MM/dd/yyyy hh:mm}", x);
+      return y;
+    }
+    public static string toStrDay(this DateTime x){ 
+      string y = String.Format(CultureInfo.InvariantCulture, "{0:MM/dd/yyyy}", x);
       return y;
     }
 
