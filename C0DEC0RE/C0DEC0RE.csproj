@@ -246,6 +246,7 @@
     <Compile Include="MMCrypto.cs" />
     <Compile Include="MMData.cs" />
     <Compile Include="MMDataConfig.cs" />
+    <Compile Include="MMEmail.cs" />
     <Compile Include="MMExt.cs" />
     <Compile Include="MMWebSiteUsers.cs" />
     <Compile Include="NamedConfigurationElement.cs" />
