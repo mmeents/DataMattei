@@ -9,7 +9,7 @@ using System.Net.Mail;
 namespace C0DEC0RE
 {
   
-  class Addr{
+  public class Addr{
     private string fName;
     private string fEmail;
     public Addr(string sName, string sEmail){
@@ -27,7 +27,7 @@ namespace C0DEC0RE
     }
   }
 
-  class AddrList{
+  public class AddrList{
     private List<Addr> fTo;
     private List<Addr> fCC;
     private List<Addr> fBCC;
@@ -74,19 +74,22 @@ namespace C0DEC0RE
           r.AppendLine(a.MakeAddrString());
         }
       }
-      r.AppendLine("</BCC>");
-   //   r.AppendLine("<From> <EmailAddress name=\"\" email=\"Notifications@blueskymls.com\" /> </From>"); 
+      r.AppendLine("</BCC>");     
       return r.ToString();
     }
 
   }
 
-  class EMailBuilder {
+  public class EMailBuilder {
     private AddrList fAddrList;
     private String fSubject;
     private String fBody;
-    public EMailBuilder(String sSubject, String sBody ) {
+    private String fGMailAddr;
+    private String fGMailPwd;
+    public EMailBuilder(String aGMailAddr, String sGMailPwd, String sSubject, String sBody ) {
       fAddrList = new AddrList();
+      fGMailAddr = aGMailAddr;
+      fGMailPwd = sGMailPwd;
       fSubject = sSubject;
       fBody = sBody;
     }
@@ -184,6 +187,8 @@ namespace C0DEC0RE
           }
         }
 
+        msg.From = new MailAddress(fGMailAddr, "Mr. MasterLinkPro.Com");
+
         if (hasTo && hasMess && hasSub) {
           try {                        
             SmtpClient smtp = new SmtpClient();
@@ -191,7 +196,7 @@ namespace C0DEC0RE
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.Credentials = new System.Net.NetworkCredential("email", "Password");
+            smtp.Credentials = new System.Net.NetworkCredential(fGMailAddr, fGMailPwd);
             smtp.Timeout = 30000;                           
             smtp.Send(msg);
           } catch (Exception e07) {
