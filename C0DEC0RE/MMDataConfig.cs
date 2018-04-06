@@ -67,6 +67,7 @@ namespace C0DEC0RE {
 			} else {
 				sb.Append("Integrated Security=SSPI;");
 			}
+      sb.Append("TransparentNetworkIPResolution=False;");
 			return sb.ToString();
 		}
 

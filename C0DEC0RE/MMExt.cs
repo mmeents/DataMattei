@@ -4,12 +4,13 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using System.Web.UI;
 
 
 namespace C0DEC0RE {
     
   public static class MMExt {
-
+    
     #region Salts...
     public static byte[] defIV = new byte[] { 11, 13, 27, 31, 37, 41, 71, 87 };
     #endregion 
@@ -144,6 +145,10 @@ namespace C0DEC0RE {
         return -1;
       }      
     }
+    public static DateTime toDateTime(this object aObj){ 
+      DateTime aOut = Convert.ToDateTime(aObj);
+      return aOut;
+      }
     public static string toDollarStr(this object aObj){ 
       string sResult = "$0.00";
       decimal dValue = 0; 
@@ -151,6 +156,17 @@ namespace C0DEC0RE {
         sResult = "$"+dValue.toStr2();
       } 
       return sResult;
+    }
+    public static string toURLDecode(this object aObj, Page pCurPage ){
+      string sOut = Convert.ToString(aObj);
+      sOut =  sOut + pCurPage.Server.UrlDecode(sOut);
+      sOut.Replace("%20", " ");
+      return sOut;      
+    }
+    public static string toURLEncoded(this object aObj, Page pCurPage ){ 
+      string sOut = Convert.ToString(aObj);
+      sOut = pCurPage.Server.UrlEncode(sOut);
+      return sOut;
     }
     #endregion 
 
@@ -362,6 +378,43 @@ namespace C0DEC0RE {
       return sCommon + "MMCommons";
 
     }
+
+    #endregion
+
+    #region Exceptions  
+
+    public static string cTraceTableCreateSQL (){ 
+      return "CREATE TABLE [dbo].[TraceException]( "+
+      "	[TE_ID] [bigint] IDENTITY(1,1) NOT NULL, "+
+      "	[TE_U_ID] [int] NOT NULL, "+
+      "	[TE_Date] [datetime] DEFAULT (getdate()) NULL, "+
+      "	[TE_Location] [varchar](800) NULL, "+
+      "	[TE_Details] [varchar](max) NULL, "+
+      "  CONSTRAINT [PK_TraceError] PRIMARY KEY CLUSTERED ([TE_ID] ASC) "+
+      "   WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY] "+
+      ") ON [PRIMARY] ";       
+    }
+    public static string toWalkExcTreePath(this Exception e){ 
+      string sThisExcStr = "e.Msg:"+e.Message+Environment.NewLine;        
+      if (e.InnerException != null) {
+        sThisExcStr = sThisExcStr +"e.Inn:"+ e.InnerException.toWalkExcTreePath();
+      }
+      return sThisExcStr;
+    }
+    public static Exception toTraceException(this Exception e, User UserX, string sLocation){
+      try {
+        MMData d = new MMData();
+        string sDetails = e.toWalkExcTreePath();
+        d.ExecuteStoredProc("PD", "insert into dbo.TraceException (TE_U_ID, TE_Location, TE_Details) values (@aU_ID, @aLoc, @aDetails) ", new StProcParam[]{
+          new StProcParam("@aU_ID", System.Data.DbType.Int32, UserX.UserID),
+          new StProcParam("@aLoc", System.Data.DbType.String, sLocation),
+          new StProcParam("@aDetails", System.Data.DbType.String, sDetails)
+        });
+      } catch (Exception xx){
+        //  if db is out then lets not add another to pile on log. 
+      }
+      return e;
+    } 
 
     #endregion
     

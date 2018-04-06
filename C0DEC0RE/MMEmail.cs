@@ -187,7 +187,7 @@ namespace C0DEC0RE
           }
         }
 
-        msg.From = new MailAddress(fGMailAddr, "Mr. MasterLinkPro.Com");
+        msg.From = new MailAddress(fGMailAddr, "No Reply");
 
         if (hasTo && hasMess && hasSub) {
           try {                        
