@@ -135,6 +135,13 @@ namespace C0DEC0RE {
     #endregion
 
     #region Object
+    public static Boolean isNull(this object aObj){ 
+      Boolean isItNull = (aObj==null);
+      if (!isItNull){
+        isItNull = Convert.IsDBNull(aObj);
+      }
+      return isItNull;
+    }
     public static string toString(this object aObj) {      
       return Convert.ToString(aObj);
     }
@@ -144,6 +151,10 @@ namespace C0DEC0RE {
       } else {
         return -1;
       }      
+    }
+    public static double toDouble(this object aObj){ 
+      double y = Convert.ToDouble(aObj);            
+      return y;
     }
     public static DateTime toDateTime(this object aObj){ 
       DateTime aOut = Convert.ToDateTime(aObj);
@@ -308,8 +319,17 @@ namespace C0DEC0RE {
 
     #endregion
 
-    #region List of Strings
-
+    #region Excel Column Logic from string
+    public static Int32 toExcelColInt(this string sCellColLetter){ 
+      string sAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      Int32 iLetLen = sCellColLetter.Length -1;
+      Int32 iRes = 0;
+      for(Int32 i = 0; i <= iLetLen; i++ ){ 
+        char c = sCellColLetter[i];
+        iRes = iRes * 26 + sAlpha.LastIndexOf(c);        
+      }
+      return iRes;
+    }
     #endregion 
 
     #endregion
