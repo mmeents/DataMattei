@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Data;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Web.UI;
@@ -319,17 +321,30 @@ namespace C0DEC0RE {
 
     #endregion
 
-    #region Excel Column Logic from string
+    #region Excel Column Logic from string  thanks https://stackoverflow.com/a/1951526 
     public static Int32 toExcelColInt(this string sCellColLetter){ 
-      string sAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      Int32 iLetLen = sCellColLetter.Length -1;
-      Int32 iRes = 0;
-      for(Int32 i = 0; i <= iLetLen; i++ ){ 
-        char c = sCellColLetter[i];
-        iRes = iRes * 26 + sAlpha.LastIndexOf(c);        
+      int retVal = 0;
+      string col = sCellColLetter.ToUpper();
+      for (int iChar = col.Length - 1; iChar >= 0; iChar--){
+          char colPiece = col[iChar];
+          int colNum = colPiece - 64;
+          retVal = retVal + colNum * (int)Math.Pow(26, col.Length - (iChar + 1));
       }
-      return iRes;
+      return retVal;      
     }
+
+    public static string toExcelColLetters(this Int32 iColIndex){ 
+      string columnString = "";
+      decimal columnNumber = iColIndex;
+      while (columnNumber > 0) {
+          decimal currentLetterNumber = (columnNumber - 1) % 26;
+          char currentLetter = (char)(currentLetterNumber + 65);
+          columnString = currentLetter + columnString;
+          columnNumber = (columnNumber - (currentLetterNumber + 1)) / 26;
+      }
+      return columnString;
+    }
+
     #endregion 
 
     #endregion
@@ -361,6 +376,18 @@ namespace C0DEC0RE {
     }
 
     #endregion
+
+    #region Dates and Times
+    public static Boolean hasFirstRow(this DataSet ds) {      
+      return ((ds.Tables.Count>0)&&(ds.Tables[0].Rows.Count>0));
+    }
+
+    public static DataRow toFirstRow(this DataSet ds){ 
+      return ds.Tables[0].Rows[0];
+    }
+
+    #endregion
+
 
     #region Files and Locations
 
@@ -397,6 +424,24 @@ namespace C0DEC0RE {
       return sCommon + "MMCommons";
 
     }
+
+     public static string toFileContentHash(this string aFileName) {
+        string FileHash = "";
+        try {                
+          using (MD5 md = MD5.Create()) {
+            using (FileStream InStream = File.OpenRead(aFileName)){
+              FileHash = md.ComputeHash(InStream).toHexStr();
+              InStream.Dispose();
+            }                    
+          }
+        }catch (Exception e){
+          FileHash = "Error:" + e.Message;
+          if (FileHash.Length > 100){
+              FileHash = FileHash.Substring(0, 100);
+          }              
+        }
+        return FileHash;
+     }
 
     #endregion
 

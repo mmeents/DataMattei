@@ -19,15 +19,19 @@ namespace TestCredentialStore
     }
 
     private void Form1_Load(object sender, EventArgs e) {
-      
-      
+      listBox1.Items.Clear();
+      MMCredentialStore aMC = new MMCredentialStore();
+    //  if (aMC.Count == -1){ 
+    //    aMC[0] = "";
+    //    aMC.Count = 1;
+    //  }      
     }
 
     private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
 
     }
   }
-
+  /*
 
   public class MMCredentialStore {
     public FileVar fvMain;
@@ -96,12 +100,15 @@ namespace TestCredentialStore
         fvMain["RootPrivateCert"] = kpMain.toAESCipher(sPriCert);
         fvMain["RootPublicCert"] = kpMain.toAESCipher(sPubCert);
         fvMain["RootPrivateCertHash"] = sPriCertHash;
+        this.Count = 0;
       }
       
     }
-
-
-
+    public Int32 Count { get{ return fvMain["varCount"].toInt32();} set {fvMain["varCount"] = value.toString();}}
+    public string this [Int32 iIndex]{ 
+      get { return kpMain.toDecryptAES( fvMain["var"+iIndex.toString()] ); } 
+      set { fvMain["var"+iIndex.toString()] = kpMain.toAESCipher(value); }
+    } 
   }
-
+*/
 }
