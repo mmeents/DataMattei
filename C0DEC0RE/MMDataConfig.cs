@@ -178,6 +178,19 @@ namespace C0DEC0RE {
       catch { }
       return result;
     }
+    public void RemoveVar(string VarName){ 
+      IniFile f = IniFile.FromFile(FileName);        
+      f["Variables"].DeleteKey(VarName);
+      f.Save(FileName);
+      if(cache.ContainsKey(VarName)){ 
+        cache.Remove(VarName);
+      }
+
+    }
+    public System.Collections.ObjectModel.ReadOnlyCollection<string> getVarNames(){ 
+      IniFile f = IniFile.FromFile(FileName);        
+      return f["Variables"].GetKeys(); 
+    }
     public string this[string VarName] { get { return GetVarValue(VarName); } set { SetVarValue(VarName, value); } }
   }
 

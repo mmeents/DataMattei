@@ -13,7 +13,7 @@ namespace C0DEC0RE {
     
   public static class MMExt {
     
-    #region Salts...
+    #region Salts ...
     public static byte[] defIV = new byte[] { 11, 13, 27, 31, 37, 41, 71, 87 };
     #endregion 
 
@@ -387,8 +387,7 @@ namespace C0DEC0RE {
     }
 
     #endregion
-
-
+    
     #region Files and Locations
 
     public static string SettingFileName(string sSettingName)

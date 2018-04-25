@@ -142,17 +142,18 @@ namespace C0DEC0RE {
     public FileVar fvMain;
     public KeyPair kpMain;
     public RSATool rTool;
-    public MMCredentialStore() {
+    private string sMasterPwd = "";
+    public MMCredentialStore( string aMasterPwd) {
+      sMasterPwd = aMasterPwd;
       string sFileName = MMExt.MMConLocation() +"\\MachineCredentialStoreRoot.Cert";
       string sPriCert = "";
       string sPubCert = "";
       Boolean bRootCertFound = true;
-      if(File.Exists(sFileName)) {//--let
-        fvMain = new FileVar(sFileName);
-        string sRootPriCertHash = fvMain["RootPrivateCertHash"];
-        if(sRootPriCertHash !="") {
+      if(File.Exists(sFileName)) {
+        fvMain = new FileVar(sFileName);        
+        if(sMasterPwd !="") {
           try {
-            kpMain = new KeyPair(KeyType.AES, sRootPriCertHash);
+            kpMain = new KeyPair(KeyType.AES, sMasterPwd);
           } catch {
             bRootCertFound = false;
           }
@@ -199,21 +200,19 @@ namespace C0DEC0RE {
         fvMain = new FileVar(sFileName);
         rTool = new RSATool(true);
         sPubCert = rTool.GetPublicCert();
-        sPriCert = rTool.GetPrivateCert();
-        string sPriCertHash = sPriCert.toHashSHA512();
-        kpMain = new KeyPair(KeyType.AES, sPriCertHash);
+        sPriCert = rTool.GetPrivateCert();        
+        kpMain = new KeyPair(KeyType.AES, sMasterPwd);
         fvMain["RootPrivateCert"] = kpMain.toAESCipher(sPriCert);
-        fvMain["RootPublicCert"] = kpMain.toAESCipher(sPubCert);
-        fvMain["RootPrivateCertHash"] = sPriCertHash;
-        this.Count = 0;
+        fvMain["RootPublicCert"] = kpMain.toAESCipher(sPubCert);                
       }
       
+    }    
+    public string this [string sCredentialName]{ 
+      get { return (fvMain["c"+sCredentialName]==null?"": kpMain.toDecryptAES( fvMain["c"+sCredentialName] )); } 
+      set { fvMain["c"+sCredentialName] = kpMain.toAESCipher(value); }
     }
-    public Int32 Count { get{ return fvMain["varCount"].toInt32();} set {fvMain["varCount"] = value.toString();}}
-    public string this [Int32 iIndex]{ 
-      get { return kpMain.toDecryptAES( fvMain["var"+iIndex.toString()] ); } 
-      set { fvMain["var"+iIndex.toString()] = kpMain.toAESCipher(value); }
-    } 
-  }
-    
+    public void RemoveCredential(string sCredentialName){ 
+      fvMain.RemoveVar("c"+sCredentialName);
+    }     
+  }    
 }

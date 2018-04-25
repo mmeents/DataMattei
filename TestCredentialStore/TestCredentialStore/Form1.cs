@@ -17,98 +17,85 @@ namespace TestCredentialStore
     public Form1() {
       InitializeComponent();
     }
-
+    private MMCredentialStore MCS;
     private void Form1_Load(object sender, EventArgs e) {
       listBox1.Items.Clear();
-      MMCredentialStore aMC = new MMCredentialStore();
-    //  if (aMC.Count == -1){ 
-    //    aMC[0] = "";
-    //    aMC.Count = 1;
-    //  }      
+      PasswordDialog pd = new PasswordDialog();
+      if (pd.ShowDialog(this)!=DialogResult.OK){ 
+        throw new Exception("Password not present. Aborting start.");
+      } else { 
+        string sMasterPass = pd.sPassword;
+        if (sMasterPass!=""){
+          MCS = new MMCredentialStore(sMasterPass);
+        }
+      }      
+      
+      loadListBox();      
+    }
+
+    private void loadListBox(){ 
+      listBox1.Items.Clear();
+      var l = MCS.fvMain.getVarNames();
+      if (l.Count>0){ 
+        foreach(string s in l ){ 
+          if (s.Substring(0,1)=="c"){
+            listBox1.Items.Add(s.Substring(1));
+          }
+        }
+      }
+      if (button1.Visible) button1.Visible = false;
+      if (button2.Visible) button2.Visible = false;
+      dirty = false;
     }
 
     private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
-
+      string c = listBox1.SelectedItem.toString();
+      if(c!=""){       
+          textBox1.Text = c;       
+          textBox2.Text = MCS[c].ParseString(" ",0);       
+          textBox3.Text = MCS[c].ParseString(" ",1);    
+          if (button1.Visible) button1.Visible = false;
+          if (button2.Visible) button2.Visible = false;
+          dirty = false;
+      }
     }
-  }
-  /*
 
-  public class MMCredentialStore {
-    public FileVar fvMain;
-    public KeyPair kpMain;
-    public RSATool rTool;
-    public MMCredentialStore() {
-      string sFileName = MMExt.MMConLocation() +"\\MachineCredentialStoreRoot.Cert";
-      string sPriCert = "";
-      string sPubCert = "";
-      Boolean bRootCertFound = true;
-      if(File.Exists(sFileName)) {//--let
-        fvMain = new FileVar(sFileName);
-        string sRootPriCertHash = fvMain["RootPrivateCertHash"];
-        if(sRootPriCertHash !="") {
-          try {
-            kpMain = new KeyPair(KeyType.AES, sRootPriCertHash);
-          } catch {
-            bRootCertFound = false;
-          }
-        }        
-        if(bRootCertFound) {
-          string sUVPriCert = fvMain["RootPrivateCert"];
-          if(sUVPriCert != "") {
-            try {
-              sPriCert = kpMain.toDecryptAES(sUVPriCert);
-            } catch {
-              bRootCertFound = false;
-            }
-          } else {
-            bRootCertFound = false;
-          }
-        }
-        if(bRootCertFound) {
-          string sUVPriCert = fvMain["RootPublicCert"];
-          if(sUVPriCert != "") {
-            try {
-              sPubCert = kpMain.toDecryptAES(sUVPriCert);
-            } catch {
-              bRootCertFound = false;
-            }
-          } else {
-            bRootCertFound = false;
-          }
-        }
-      } else {
-        bRootCertFound = false;
-      }
-
-      if(bRootCertFound) {
-        try {
-          rTool = new RSATool(false);
-          rTool.SetPrivateCert(sPriCert);
-          rTool.SetPublicCert(sPubCert);
-        } catch {
-          bRootCertFound = false;
-        }
-      }
-
-      if(!bRootCertFound) {      
-        fvMain = new FileVar(sFileName);
-        rTool = new RSATool(true);
-        sPubCert = rTool.GetPublicCert();
-        sPriCert = rTool.GetPrivateCert();
-        string sPriCertHash = sPriCert.toHashSHA512();
-        kpMain = new KeyPair(KeyType.AES, sPriCertHash);
-        fvMain["RootPrivateCert"] = kpMain.toAESCipher(sPriCert);
-        fvMain["RootPublicCert"] = kpMain.toAESCipher(sPubCert);
-        fvMain["RootPrivateCertHash"] = sPriCertHash;
-        this.Count = 0;
-      }
-      
+    private void button1_Click(object sender, EventArgs e) {
+       MCS.RemoveCredential(textBox1.Text);
+       loadListBox(); 
     }
-    public Int32 Count { get{ return fvMain["varCount"].toInt32();} set {fvMain["varCount"] = value.toString();}}
-    public string this [Int32 iIndex]{ 
-      get { return kpMain.toDecryptAES( fvMain["var"+iIndex.toString()] ); } 
-      set { fvMain["var"+iIndex.toString()] = kpMain.toAESCipher(value); }
-    } 
+
+    private void button2_Click(object sender, EventArgs e) {
+      string s1 = "";
+      string s2 = "";
+      string s3 = "";
+      if ( textBox1.Text != ""){ 
+        s1 = textBox1.Text;
+      }
+      if ( textBox1.Text != ""){ 
+        s2 = textBox2.Text;
+      }
+      if ( textBox1.Text != ""){ 
+        s3 = textBox3.Text;
+      }
+      if ((s1!="")&&(s2!="")&&(s3!="")){ 
+        MCS[s1] = s2 + " " + s3; 
+      }
+      loadListBox();
+    }
+
+    bool dirty = false;
+    private void textBox1_TextChanged(object sender, EventArgs e) {
+      if (!dirty) { 
+        dirty = true; 
+        if (!button1.Visible) button1.Visible = true;
+        if (!button2.Visible) button2.Visible = true;
+      }       
+    }
+
+
+
+
   }
-*/
+  
 }
