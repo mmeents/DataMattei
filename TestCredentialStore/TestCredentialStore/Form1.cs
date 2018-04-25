@@ -19,17 +19,8 @@ namespace TestCredentialStore
     }
     private MMCredentialStore MCS;
     private void Form1_Load(object sender, EventArgs e) {
-      listBox1.Items.Clear();
-      PasswordDialog pd = new PasswordDialog();
-      if (pd.ShowDialog(this)!=DialogResult.OK){ 
-        throw new Exception("Password not present. Aborting start.");
-      } else { 
-        string sMasterPass = pd.sPassword;
-        if (sMasterPass!=""){
-          MCS = new MMCredentialStore(sMasterPass);
-        }
-      }      
-      
+      listBox1.Items.Clear();      
+      MCS = new MMCredentialStore("");      
       loadListBox();      
     }
 

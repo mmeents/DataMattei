@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace C0DEC0RE {
 
@@ -144,7 +145,18 @@ namespace C0DEC0RE {
     public RSATool rTool;
     private string sMasterPwd = "";
     public MMCredentialStore( string aMasterPwd) {
-      sMasterPwd = aMasterPwd;
+      if (aMasterPwd==""){
+        PasswordDialog pd = new PasswordDialog();
+        if (pd.ShowDialog()!=DialogResult.OK){ 
+          throw new Exception("Password not present. Aborting start.");
+        } else { 
+          sMasterPwd = pd.sPassword;
+          if (sMasterPwd==""){
+            throw new Exception("Password not present. Aborting start.");
+          }
+        }
+      }
+      //sMasterPwd = aMasterPwd;
       string sFileName = MMExt.MMConLocation() +"\\MachineCredentialStoreRoot.Cert";
       string sPriCert = "";
       string sPubCert = "";
@@ -215,4 +227,5 @@ namespace C0DEC0RE {
       fvMain.RemoveVar("c"+sCredentialName);
     }     
   }    
+
 }
