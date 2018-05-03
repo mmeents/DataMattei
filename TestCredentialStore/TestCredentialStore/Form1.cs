@@ -84,9 +84,9 @@ namespace TestCredentialStore
       }       
     }
 
-
-
-
+    private void button3_Click(object sender, EventArgs e) {
+      textBox3.UseSystemPasswordChar = !textBox3.UseSystemPasswordChar;
+    }
   }
   
 }

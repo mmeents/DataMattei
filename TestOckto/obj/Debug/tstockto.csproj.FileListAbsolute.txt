@@ -1,0 +1,15 @@
+C:\A Projects\blotson\tstockto\bin\Debug\tstockto.exe.config
+C:\A Projects\blotson\tstockto\bin\Debug\tstockto.exe
+C:\A Projects\blotson\tstockto\bin\Debug\tstockto.pdb
+C:\A Projects\blotson\tstockto\bin\Debug\C0DEC0RE.dll
+C:\A Projects\blotson\tstockto\bin\Debug\Octokit.dll
+C:\A Projects\blotson\tstockto\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\A Projects\blotson\tstockto\bin\Debug\C0DEC0RE.pdb
+C:\A Projects\blotson\tstockto\bin\Debug\Octokit.xml
+C:\A Projects\blotson\tstockto\obj\Debug\tstockto.csprojResolveAssemblyReference.cache
+C:\A Projects\blotson\tstockto\obj\Debug\tstockto.Form1.resources
+C:\A Projects\blotson\tstockto\obj\Debug\tstockto.Properties.Resources.resources
+C:\A Projects\blotson\tstockto\obj\Debug\tstockto.csproj.GenerateResource.Cache
+C:\A Projects\blotson\tstockto\obj\Debug\tstockto.csproj.CoreCompileInputs.cache
+C:\A Projects\blotson\tstockto\obj\Debug\tstockto.exe
+C:\A Projects\blotson\tstockto\obj\Debug\tstockto.pdb

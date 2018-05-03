@@ -19,23 +19,22 @@ namespace LockBoxViewer
   public partial class Form1:Form{
 
     public LockBox ox = null;
-    public Form1()
-    {
+    public MMCredentialStore MCS = null;
+    public Form1(){
       InitializeComponent();
+      MCS = new MMCredentialStore("");
     }    
-
+    
     private void toolStripMenuItem1_Click(object sender,EventArgs e) {
       // open LockBox.
       odMain.FileName = "*.lxb";
-      string sPassword = "";
+      //string sPassword = "";
       if(odMain.ShowDialog()==DialogResult.OK) {
-        string sFile = odMain.FileName;
-        PasswordDialog pd = new PasswordDialog();
-        if(pd.ShowDialog()==DialogResult.OK) {
-          sPassword = pd.Password;
-          ox = new LockBox(sFile,sPassword);
-          buildTree();
-        }
+        string sFile = odMain.FileName;        
+        string sPwd = MCS["LockBox"].ParseString(" ",1);
+        ox = new LockBox(sFile,sPwd);
+        buildTree();
+        // }
       }
     }
 
@@ -61,6 +60,10 @@ namespace LockBoxViewer
           treeView1.Nodes.Add(sFile);
         }
       }
+    }
+
+    private void toolStripButton1_Click(object sender, EventArgs e) {
+
     }
   }
 

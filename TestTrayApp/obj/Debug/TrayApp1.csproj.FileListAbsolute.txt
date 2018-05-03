@@ -1,0 +1,15 @@
+C:\Reference\codefight\TrayAppTest\TrayApp1\obj\Debug\TrayApp1.csprojResolveAssemblyReference.cache
+C:\Reference\codefight\TrayAppTest\TrayApp1\obj\Debug\TrayApp1.Properties.Resources.resources
+C:\Reference\codefight\TrayAppTest\TrayApp1\obj\Debug\TrayApp1.csproj.GenerateResource.Cache
+C:\Reference\codefight\TrayAppTest\TrayApp1\obj\Debug\TrayApp1.csproj.CoreCompileInputs.cache
+C:\Reference\codefight\TrayAppTest\TrayApp1\obj\Debug\TrayApp1.Form1.resources
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\getDrop.exe.config
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\getDrop.exe
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\getDrop.pdb
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\C0DEC0RE.dll
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\Octokit.dll
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\C0DEC0RE.pdb
+C:\Reference\codefight\TrayAppTest\TrayApp1\bin\Debug\Octokit.xml
+C:\Reference\codefight\TrayAppTest\TrayApp1\obj\Debug\getDrop.exe
+C:\Reference\codefight\TrayAppTest\TrayApp1\obj\Debug\getDrop.pdb
