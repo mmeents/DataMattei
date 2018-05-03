@@ -8,7 +8,7 @@
   ### INI file support objects for file IO ops.
   ### MMExt object is a Static object with static methods that do a lot and appear within code completion.
   ### MMStrUtils object is a pre cursor to the MMExt object before they went static.  Left in for backward compatability purposes.
-  ### Cryptography support for encodeing and encrypting content via AES, DES and RSA.  Main objects are Keypair, RSATool and MMExt 
+  ### Cryptography support for encodeing and encrypting content via AES, DES and RSA.  Main objects are Keypair, RSATool and MMCredential Store.  MMCredential store is component that encrypts account credentials in a file in the ProgramData folder under MMCommon directory.  This allows for a way to store additional named credentials to a password protected file.  
   ### UserManager and providers to implement multi user website authentication with either Forms or Windows authentication.
   ### MMWebsiteContext has varAt methods that searches the multitude of locations for web request response parameter passing.
   ### dbVar and FileVar object that provides persistance via Database and File to name value pairs. 
@@ -19,8 +19,14 @@
   ### Generate a stored procedure that Adds and/or Updates a table or view.
   ### Generate a stored procedure that iterates across a table or view via sql cursor.
 
+# TestCredentialStore -- app that allows you to inspect and modifiy the credentials on within the MMCredentialStore on a particular machine. 
 
-## TestStrings -- Project to list/maintain the connection strings for a machine.  I think this method of saving the connection strings in the local machine's common app data folder is great because they do not get included within repositories.  TestStrings project uses MMConMgr, so it's a most simple demo that also shows you how to configure MMConMgr in your apps.  Still need to test MMConMgr in web app.
+# TestTrayApp -- prototype tray app...
+# LockBox -- prototype zip file that uses Credential Store to password encrypt files within the zip. 
+# TestOckto  -- prototype application that is used to test the Github api.
+
+# TestStrings -- Project to list/maintain the connection strings for a machine.  I think this method of saving the connection strings in the local machine's common app data folder is great because they do not get included within repositories.  TestStrings project uses MMConMgr, so it's a most simple demo that also shows you how to configure MMConMgr in your apps.  Still need to test MMConMgr in web app.
+
 
 
 # That's pretty much it folks.  A library of all the $$$ routines, enjoy and happy coding.
