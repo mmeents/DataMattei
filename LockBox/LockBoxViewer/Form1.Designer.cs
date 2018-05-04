@@ -32,6 +32,7 @@
       this.splitContainer1 = new System.Windows.Forms.SplitContainer();
       this.pbMain = new System.Windows.Forms.ProgressBar();
       this.treeView1 = new System.Windows.Forms.TreeView();
+      this.button1 = new System.Windows.Forms.Button();
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
       this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
       this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,8 +43,11 @@
       this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
       this.odMain = new System.Windows.Forms.OpenFileDialog();
       this.odAdd = new System.Windows.Forms.OpenFileDialog();
+      this.sdMain = new System.Windows.Forms.SaveFileDialog();
+      this.dlgBrowseFolder = new System.Windows.Forms.FolderBrowserDialog();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
+      this.splitContainer1.Panel2.SuspendLayout();
       this.splitContainer1.SuspendLayout();
       this.toolStrip1.SuspendLayout();
       this.SuspendLayout();
@@ -60,6 +64,10 @@
       // 
       this.splitContainer1.Panel1.Controls.Add(this.pbMain);
       this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+      // 
+      // splitContainer1.Panel2
+      // 
+      this.splitContainer1.Panel2.Controls.Add(this.button1);
       this.splitContainer1.Size = new System.Drawing.Size(844, 599);
       this.splitContainer1.SplitterDistance = 294;
       this.splitContainer1.TabIndex = 0;
@@ -69,7 +77,7 @@
       this.pbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.pbMain.Location = new System.Drawing.Point(8, 2);
-      this.pbMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.pbMain.Margin = new System.Windows.Forms.Padding(2);
       this.pbMain.Name = "pbMain";
       this.pbMain.Size = new System.Drawing.Size(282, 15);
       this.pbMain.TabIndex = 1;
@@ -83,6 +91,16 @@
       this.treeView1.Name = "treeView1";
       this.treeView1.Size = new System.Drawing.Size(291, 562);
       this.treeView1.TabIndex = 0;
+      // 
+      // button1
+      // 
+      this.button1.Location = new System.Drawing.Point(83, 99);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(75, 23);
+      this.button1.TabIndex = 0;
+      this.button1.Text = "button1";
+      this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
       // toolStrip1
       // 
@@ -114,21 +132,21 @@
       // toolStripMenuItem1
       // 
       this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-      this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
       this.toolStripMenuItem1.Text = "Open Box";
       this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
       // 
       // closeBoxToolStripMenuItem
       // 
       this.closeBoxToolStripMenuItem.Name = "closeBoxToolStripMenuItem";
-      this.closeBoxToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.closeBoxToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
       this.closeBoxToolStripMenuItem.Text = "Close Box";
       this.closeBoxToolStripMenuItem.Click += new System.EventHandler(this.closeBoxToolStripMenuItem_Click);
       // 
       // addItemsToolStripMenuItem
       // 
       this.addItemsToolStripMenuItem.Name = "addItemsToolStripMenuItem";
-      this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
       this.addItemsToolStripMenuItem.Text = "Add Items";
       this.addItemsToolStripMenuItem.Click += new System.EventHandler(this.addItemsToolStripMenuItem_Click);
       // 
@@ -179,6 +197,7 @@
       this.Name = "Form1";
       this.Text = "Lock Box";
       this.splitContainer1.Panel1.ResumeLayout(false);
+      this.splitContainer1.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
       this.splitContainer1.ResumeLayout(false);
       this.toolStrip1.ResumeLayout(false);
@@ -203,6 +222,9 @@
     private System.Windows.Forms.ToolStripMenuItem addItemsToolStripMenuItem;
     private System.Windows.Forms.OpenFileDialog odAdd;
     private System.Windows.Forms.ProgressBar pbMain;
+    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.SaveFileDialog sdMain;
+    private System.Windows.Forms.FolderBrowserDialog dlgBrowseFolder;
   }
 }
 

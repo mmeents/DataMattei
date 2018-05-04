@@ -23,6 +23,13 @@ namespace LockBoxViewer
     public Form1(){
       InitializeComponent();
       MCS = new MMCredentialStore("");
+      string[] args = Environment.GetCommandLineArgs();
+      if ((args.Length>1)&&(args[1].Trim() != "")&&(File.Exists(args[1]))){ 
+        string sFile = args[1];        
+        string sPwd = MCS["LockBox"].ParseString(" ",1);
+        ox = new LockBox(sFile,sPwd);
+        buildTree();
+      }      
     }    
     
     private void toolStripMenuItem1_Click(object sender,EventArgs e) {
@@ -63,7 +70,22 @@ namespace LockBoxViewer
     }
 
     private void toolStripButton1_Click(object sender, EventArgs e) {
+      if (dlgBrowseFolder.ShowDialog() == DialogResult.OK){ 
+        string sPath = dlgBrowseFolder.SelectedPath;
+      }
+    }
 
+    private void button1_Click(object sender, EventArgs e) {
+      if (treeView1.SelectedNode != null ){ 
+        string sFileName = treeView1.SelectedNode.Text;
+        Int32 iChunkNo = sFileName.ParseString(":", 0).toInt32();
+        string sFilePathname = "C:\\"+sFileName.ParseString(":",1).Replace('/','\\');
+        sdMain.FileName = sFilePathname;
+        if( sdMain.ShowDialog() == DialogResult.OK){ 
+          ox.Extract(iChunkNo, sFileName, sdMain.FileName);
+
+        }        
+      }
     }
   }
 
@@ -90,7 +112,8 @@ namespace LockBoxViewer
         ivFile = new FileVar(FileNamePath);
         string sChunkCount = ivFile["ChunkCount"];
         if(sChunkCount=="") {
-          ivFile["ChunkCount"]="0";
+          sChunkCount = "0";
+          ivFile["ChunkCount"]=sChunkCount;
         }
         Int32 iChunkCount = 0;
         if(Int32.TryParse(sChunkCount,out iChunkCount)) {
@@ -118,7 +141,22 @@ namespace LockBoxViewer
         iChunck++;
       }
     }
+    public void Extract(Int32 iChunk, string sZipFileName, string sNewFileName){
+       string sCompare = sZipFileName.ParseString(":", 1).ToUpper();
+       string sCypherChunk = ivFile["x"+iChunk.ToString()];       
+       string sChunk = kpFileKey.NextKeyPair(iChunk).toDecryptAES(sCypherChunk);
 
+       MemoryStream zipMS = new MemoryStream(sChunk.toByteArray());
+       using(ZipFile z = ZipFile.Read(zipMS)) {
+         foreach(ZipEntry ze in z) {
+           string sFileName = ze.FileName.ToUpper();
+           if (sFileName == sCompare ){                            
+              ze.Extract(sNewFileName, ExtractExistingFileAction.DoNotOverwrite);
+
+           }           
+         }
+       }
+    }
     public void Add(string[] files) {
 
       Int32 iFileCount = files.Count();
