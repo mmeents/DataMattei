@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 using System.Windows.Forms;
 using Octokit;
 using C0DEC0RE;
@@ -40,10 +41,34 @@ namespace tstockto
       }     
       #endregion
 
+      var sRepUser = "mmeents";
       var sRepName = "MMDataStore";
-      var rMMDataStore = await github.Repository.Get("mmeents", "MMDataStore");  
-      var sName = rMMDataStore.Name;
-      var sLogin = rMMDataStore.Owner.Login;
+      var sFileName = "EFJGJNATBKTTHHQYGL.txt";
+      var branch = "master";
+    //  var rMMDataStore = await github.Repository.Get("mmeents", "MMDataStore");  
+    //  var sName = rMMDataStore.Name;
+    //  var sLogin = rMMDataStore.Owner.Login;
+      
+      var RepContent = await github.Repository.Content.GetAllContents(sRepUser, sRepName, "path");
+      foreach(RepositoryContent rc in RepContent){         
+        if (rc.Name == sFileName){ 
+          setMessage(rc.Name+" found in Encoded");
+          String sTempName = Path.GetTempFileName();
+          rc.DownloadUrl.SaveAs( sTempName );
+          FileVar fv = new FileVar(sTempName);
+          string sUserHash = mc.rTool.GetPublicCert().toHashSHA512();
+          string sUserCert = mc.rTool.GetPublicCert();
+          if (fv["Usr"+sUserHash] != sUserCert ) {
+            fv["Usr"+sUserHash] = mc.rTool.GetPublicCert();          
+            string sSha = rc.Sha;
+            string sContents = File.ReadAllText(sTempName);
+            var updateChangeSet = await github.Repository.Content.UpdateFile(sRepUser, sRepName, "path/"+sFileName, 
+              new UpdateFileRequest("RegisterUserX", sContents, sSha, branch));
+          }
+          break;                 
+        }        
+      } 
+    }
      
 
       /*  worked added file to location.
@@ -52,7 +77,7 @@ namespace tstockto
        var owner = "mmeents";
        var repo = "MMDataStore";
        var branch = "master";
-      var sFileName = "EFJGJNATBKTTHHQYGL";
+      
       var cSet = await github.Repository.Content.CreateFile("mmeents", "MMDataStore", "path/"+sFileName+".txt", new CreateFileRequest("Message", "[Contents][NATBKTTHHQ]", "master"));
       string sSha = cSet.Content.Sha; 
 
@@ -63,12 +88,7 @@ namespace tstockto
       // delete file  not tested yet
       await github.Repository.Content.DeleteFile(owner, repo, "path/file.txt",
         new DeleteFileRequest("File deletion", updateChangeSet.Content.Sha, branch));
-
-
-
-
-      */
-
+              */
       //var aUser = await github.User.Get("mmeents");
       //var x = await github.Repository.Get("mmeents", "MMDataStore");      
       //var rl = await github.Repository.GetAllForCurrent( );
@@ -85,10 +105,13 @@ namespace tstockto
           }
 
         }
-      }     */
+      }    
+      
+       https://raw.githubusercontent.com/mmeents/MMDataStore/master/path/EFJGJNATBKTTHHQYGL.txt 
+       */
 
 
-    }
+    
 
     public async void WalkRepContAsync(GitHubClient ghc, Repository r, string sPath){ 
       var grcMain = await ghc.Repository.Content.GetAllContents(r.Owner.Login, r.Name, sPath); 
@@ -109,4 +132,37 @@ namespace tstockto
     
 
   }
+
+  public static class HelperClassX { 
+    public static HttpWebRequest GetRequest( this string sURL ){ 
+      var req = WebRequest.CreateHttp(sURL);
+      return req;
+    }
+    public static string GetResponseString(this HttpWebRequest request) {
+      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+      using (var response = request.GetResponse()) {
+        using (var stream = response.GetResponseStream()) {
+          if (stream == null) throw new NullReferenceException("The HttpWebRequest's response stream cannot be empty.");
+          using (var reader = new StreamReader(stream)) {
+              return reader.ReadToEnd();
+          }
+        }
+      }
+    }
+    public static string GetContentsAt(this string sURL){ 
+      return sURL.GetRequest().GetResponseString();
+    }
+    public static Boolean SaveAs(this string sURL, string sFileName){ 
+      Boolean didItExcept = false;
+      try{ 
+        string sContents = sURL.GetContentsAt();
+        using (StreamWriter w = File.AppendText(sFileName)){ w.Write( sContents ); }
+      } catch {
+        didItExcept = true;
+      }
+      return !didItExcept;
+    }
+  }
+
+
 }

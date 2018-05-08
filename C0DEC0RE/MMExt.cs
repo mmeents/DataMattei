@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Data;
 using System.Security.Cryptography;
-using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using System.Web.UI;
@@ -424,7 +424,7 @@ namespace C0DEC0RE {
 
     }
 
-     public static string toFileContentHash(this string aFileName) {
+    public static string toFileContentHash(this string aFileName) {
         string FileHash = "";
         try {                
           using (MD5 md = MD5.Create()) {
@@ -441,7 +441,7 @@ namespace C0DEC0RE {
         }
         return FileHash;
      }
-
+        
     #endregion
 
     #region Exceptions  
