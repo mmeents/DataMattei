@@ -79,6 +79,14 @@ namespace C0DEC0RE {
       return y;
     }
 
+    public static double toPointsVertical(this double dIn){ 
+      return (dIn * 72); 
+    }
+
+    public static double toPointsHorizontal(this double dIn){ 
+      return (dIn * 9.72); 
+    }
+
     #endregion
 
     #region Decimal 
@@ -133,7 +141,19 @@ namespace C0DEC0RE {
       return y;
     }
 
+    public static float toFloat(this double x){ 
+      float y = Convert.ToSingle(x);
+      return y;
+    }
 
+    public static float toPointsVertical(this float dIn){ 
+      return (dIn * 72); 
+    }
+
+    public static float toPointsHorizontal(this float dIn){ 
+      return (dIn * 9.72).toFloat(); 
+    }
+    
     #endregion
 
     #region Object
@@ -395,13 +415,11 @@ namespace C0DEC0RE {
       return UserLogLocation() + sSettingName + ".ini";
     }
 
-    public static string LogFileName(string sLogName)
-    {
+    public static string LogFileName(string sLogName){
       return UserLogLocation() + sLogName + DateTime.Now.toStrDate().Trim() + ".txt";
     }
 
-    public static string UserLogLocation()
-    {
+    public static string UserLogLocation(){
       String sUserDataDir = Application.CommonAppDataPath + "\\";
       if (!Directory.Exists(sUserDataDir))
       {
@@ -411,7 +429,9 @@ namespace C0DEC0RE {
     }
 
     public static string toLog(this string sMsg, string sLogName){
-      using (StreamWriter w = File.AppendText(LogFileName(sLogName))) { w.WriteLine(DateTime.Now.toStrDateTime() + ":" + sMsg); }
+      using (StreamWriter w = File.AppendText(LogFileName(sLogName))) { 
+        w.WriteLine(DateTime.Now.toStrDateTime() + ":" + sMsg); 
+      }
       return sMsg;
     }
 
