@@ -195,6 +195,11 @@ namespace C0DEC0RE {
       sOut = pCurPage.Server.UrlDecode(sOut).Replace("%20", " ");      
       return sOut;      
     }
+    public static string toURLDecodeForHTML(this object aObj, Page pCurPage ){
+      string sOut = Convert.ToString(aObj);
+      sOut = pCurPage.Server.UrlDecode(sOut).Replace("%20", " ").Replace("\n", "<br/>");      
+      return sOut;      
+    }
     public static string toURLEncoded(this object aObj, Page pCurPage ){ 
       string sOut = Convert.ToString(aObj);
       sOut = pCurPage.Server.UrlEncode(sOut);
