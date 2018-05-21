@@ -248,6 +248,7 @@
     <Compile Include="MMDataConfig.cs" />
     <Compile Include="MMEmail.cs" />
     <Compile Include="MMExt.cs" />
+    <Compile Include="MMSQLStrings.cs" />
     <Compile Include="MMWebSiteUsers.cs" />
     <Compile Include="NamedConfigurationElement.cs" />
     <Compile Include="NamedElementCollection.cs" />

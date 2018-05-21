@@ -150,9 +150,16 @@ namespace LockBoxViewer
        using(ZipFile z = ZipFile.Read(zipMS)) {
          foreach(ZipEntry ze in z) {
            string sFileName = ze.FileName.ToUpper();
-           if (sFileName == sCompare ){                            
-              ze.Extract(sNewFileName, ExtractExistingFileAction.DoNotOverwrite);
-
+           if (sFileName == sCompare ){
+              string sWorkingPath = MMExt.UserLogLocation();
+              string sAddPathAndFile = ze.FileName.Replace('/', '\\');
+              ze.Extract(sWorkingPath, ExtractExistingFileAction.OverwriteSilently);
+              if(File.Exists(sWorkingPath+sAddPathAndFile)){ 
+                File.Copy(sWorkingPath+sAddPathAndFile, sNewFileName);
+              }
+              if(File.Exists(sWorkingPath+sAddPathAndFile)){ 
+                File.Delete(sWorkingPath+sAddPathAndFile);
+              }
            }           
          }
        }
