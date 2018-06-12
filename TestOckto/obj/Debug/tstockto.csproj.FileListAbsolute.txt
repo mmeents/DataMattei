@@ -13,3 +13,16 @@ C:\A Projects\blotson\tstockto\obj\Debug\tstockto.csproj.GenerateResource.Cache
 C:\A Projects\blotson\tstockto\obj\Debug\tstockto.csproj.CoreCompileInputs.cache
 C:\A Projects\blotson\tstockto\obj\Debug\tstockto.exe
 C:\A Projects\blotson\tstockto\obj\Debug\tstockto.pdb
+C:\gitHub\DataMattei\TestOckto\bin\Debug\tstockto.exe.config
+C:\gitHub\DataMattei\TestOckto\bin\Debug\tstockto.exe
+C:\gitHub\DataMattei\TestOckto\bin\Debug\tstockto.pdb
+C:\gitHub\DataMattei\TestOckto\bin\Debug\Octokit.dll
+C:\gitHub\DataMattei\TestOckto\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\gitHub\DataMattei\TestOckto\bin\Debug\Octokit.xml
+C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.csprojResolveAssemblyReference.cache
+C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.Form1.resources
+C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.Properties.Resources.resources
+C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.csproj.GenerateResource.Cache
+C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.csproj.CoreCompileInputs.cache
+C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.exe
+C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.pdb

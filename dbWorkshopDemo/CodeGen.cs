@@ -99,23 +99,30 @@ namespace dbWorkshop {
           a = a + ", " + tnStProc.Nodes[i].Text.ParseString(" ",0);
         }
       }
-      string s = "// MMData calls from C0DEC0RE  " + Environment.NewLine + "  MMData d = new MMData();" + Environment.NewLine +
-        "  DataSet Log = d.GetStProcDataSet(\""+sDBName+"\", \"exec dbo." + tnStProc.Text + " " + a + "\", " + Environment.NewLine +
-        "    new StProcParam[] {" + Environment.NewLine;
+      b=a;
+      string s = "";
 
       Int32 iCount = tnStProc.Nodes.Count;
+      String sCSharpDeclareVar = "";
       for(Int32 i = 0;i < iCount;i++) {
-        a = tnStProc.Nodes[i].Text.ParseString(" ",0);
+        a = tnStProc.Nodes[i].Text.ParseString(" @",0);
+        string t = SQLColumnToParamDBType(tnStProc.Nodes[i].Text);
+        sCSharpDeclareVar += "  "+t+" "+a+" = "+SQLDefNullValue(tnStProc.Nodes[i].Text.ParseString(" ", 1))+";"+Environment.NewLine;
         if(i == 0) {
-          s = s + "    new StProcParam(\"@" + tnStProc.Nodes[i].Text.ParseString(" @",0) + "\", DbType." + SQLColumnToParamDBType(tnStProc.Nodes[i].Text) + ", " + a.ParseString(" @",0) + ")";
+          s = s + "    new StProcParam(\"@" + a + "\", DbType." + t + ", " + a + ")";
         } else {
-          s = s + "," + Environment.NewLine + "    new StProcParam(\"@" + tnStProc.Nodes[i].Text.ParseString(" @",0) + "\", DbType." + SQLColumnToParamDBType(tnStProc.Nodes[i].Text) + ", " + a.ParseString(" @",0) + ")";
+          s = s + "," + Environment.NewLine + "    new StProcParam(\"@" + a + "\", DbType." + t + ", " + a + ")";
         }
       }
-      s = s + Environment.NewLine + "  });";
+      s = "//MMData from C0DEC0RE Library  " + Environment.NewLine +
+        "  MMData d = new MMData();" + Environment.NewLine +
+        sCSharpDeclareVar+
+        "  DataSet Log = d.GetStProcDataSet(\""+sDBName+"\", \"exec dbo." + tnStProc.Text + " " + b + "\", " + Environment.NewLine +
+        "    new StProcParam[] {" + Environment.NewLine + 
+        s + Environment.NewLine + "  });";
 
 
-      edC.Text = s;
+      edC.Text =  s;
       edSQLCursor.Text="Not Implemented see Table or View item on tree.";
     }
 
