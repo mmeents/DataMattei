@@ -20,7 +20,7 @@ namespace TestCredentialStore
     private MMCredentialStore MCS;
     private void Form1_Load(object sender, EventArgs e) {
       listBox1.Items.Clear();      
-      MCS = new MMCredentialStore("");      
+      MCS = new MMCredentialStore("local");      
       loadListBox();      
     }
 

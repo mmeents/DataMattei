@@ -155,8 +155,10 @@ namespace C0DEC0RE {
             throw new Exception("Password not present. Aborting start.");
           }
         }
+      } else {
+        sMasterPwd = aMasterPwd;
       }
-      //sMasterPwd = aMasterPwd;
+      
       string sFileName = MMExt.MMConLocation() +"\\MachineCredentialStoreRoot.Cert";
       string sPriCert = "";
       string sPubCert = "";
