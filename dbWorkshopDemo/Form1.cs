@@ -118,13 +118,15 @@ namespace dbWorkshop
       label1.Text = "Focused Item: "+ e.Node.Text;
       tvMain_OnActiveSelectionChange(e.Node);
       if (e.Node.Level == 0){
+        tvMain.ContextMenuStrip = cmsDatabase;
         addConnectionToolStripMenuItem.Enabled = true;
         dropConnectionToolStripMenuItem.Enabled = true;
         editConnectionToolStripMenuItem.Enabled = true;
       }else {
-        addConnectionToolStripMenuItem.Enabled = true;
-        dropConnectionToolStripMenuItem.Enabled = false;
-        editConnectionToolStripMenuItem.Enabled = false;
+        tvMain.ContextMenuStrip = cmsItem;
+     //   addConnectionToolStripMenuItem.Enabled = true;
+     //   dropConnectionToolStripMenuItem.Enabled = false;
+     //   editConnectionToolStripMenuItem.Enabled = false;
       }
     }
 
@@ -164,6 +166,27 @@ namespace dbWorkshop
 //        zf.AddFile(sFileToZip,"");      
 //        zf.Save(sFileZipAs);
 //      }
+
+    }
+
+    private void toolStripMenuItem1_Click(object sender, EventArgs e) {
+      TreeNode sel = tvMain.SelectedNode;
+      TreeNode con;
+      TreeNode tnDB;
+      Int32 iLevel = sel.Level; 
+      if (iLevel == 1) {  // add db
+        con = sel.Parent;
+        tnDB = sel;
+      edScratch.Text = con.Text.ParseString(":",0)+"["+con.Text.ParseString(":",1)+"]."+tnDB.Text  + Environment.NewLine + edScratch.Text;
+      } else if (iLevel == 2) { // add obj grp
+        con = sel.Parent.Parent;
+        tnDB = sel.Parent;
+      edScratch.Text = con.Text.ParseString(":",0)+"["+con.Text.ParseString(":",1)+"]." + tnDB.Text+"."+sel.Text+ Environment.NewLine + edScratch.Text;
+      } else if (iLevel == 3) { // add Obj
+        con = sel.Parent.Parent.Parent;
+        tnDB = sel.Parent.Parent;
+      edScratch.Text = con.Text.ParseString(":",0)+"["+con.Text.ParseString(":",1)+"]." + tnDB.Text+".dbo."+sel.Text+ Environment.NewLine + edScratch.Text;
+      } 
 
     }
   }

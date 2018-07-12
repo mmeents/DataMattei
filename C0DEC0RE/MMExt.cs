@@ -168,7 +168,8 @@ namespace C0DEC0RE {
       return Convert.ToString(aObj);
     }
     public static Int32 toInt32(this object aObj) {     
-      if(Int32.TryParse(aObj.toString(), out Int32 r)) {
+      Int32 r = -1;
+      if(Int32.TryParse(aObj.toString(), out r)) {
         return r;
       } else {
         return -1;
@@ -280,35 +281,44 @@ namespace C0DEC0RE {
     public static string toAESCipher(this KeyPair akp, string sText)
     {
       string sResult = "";
-      AesCryptoServiceProvider aASP = new AesCryptoServiceProvider();
-      AesManaged aes = new AesManaged();
-      aes.Key = akp.getKey;
-      aes.IV = akp.getIV;
-      MemoryStream ms = new MemoryStream();
-      CryptoStream encStream = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
-      StreamWriter sw = new StreamWriter(encStream);
-      sw.WriteLine(sText.toBase64EncodedStr());
-      sw.Close();
-      encStream.Close();
-      byte[] buffer = ms.ToArray();
-      ms.Close();
-      sResult = buffer.toHexStr();
+      try {
+        AesCryptoServiceProvider aASP = new AesCryptoServiceProvider();
+        AesManaged aes = new AesManaged();
+        aes.Key = akp.getKey;
+        aes.IV = akp.getIV;
+        MemoryStream ms = new MemoryStream();
+        CryptoStream encStream = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
+        StreamWriter sw = new StreamWriter(encStream);
+        sw.WriteLine(sText.toBase64EncodedStr());
+        sw.Close();
+        encStream.Close();
+        byte[] buffer = ms.ToArray();
+        ms.Close();
+        sResult = buffer.toHexStr();
+      } catch (Exception e) {
+        throw e;
+      }
       return sResult;
     }
     public static string toDecryptAES(this KeyPair akp, string sAESCipherText)
     {
-      string val = "";
-      AesCryptoServiceProvider aASP = new AesCryptoServiceProvider();
-      AesManaged aes = new AesManaged();
-      aes.Key = akp.getKey;
-      aes.IV = akp.getIV;
-      MemoryStream ms = new MemoryStream(sAESCipherText.toByteArray());
-      CryptoStream encStream = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read);
-      StreamReader sr = new StreamReader(encStream);
-      val = sr.ReadLine().toBase64DecodedStr();
-      sr.Close();
-      encStream.Close();
-      ms.Close();
+      string val = ""; 
+      try {        
+        AesCryptoServiceProvider aASP = new AesCryptoServiceProvider();
+        AesManaged aes = new AesManaged();
+        aes.Key = akp.getKey;
+        aes.IV = akp.getIV;
+        MemoryStream ms = new MemoryStream(sAESCipherText.toByteArray());
+        CryptoStream encStream = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read);
+        StreamReader sr = new StreamReader(encStream);      
+        val = sr.ReadToEnd();
+        val = val.toBase64DecodedStr();
+        sr.Close();
+        encStream.Close();
+        ms.Close();
+      } catch (Exception e) {
+        throw e;
+      }
       return val;
     }
 
@@ -337,7 +347,7 @@ namespace C0DEC0RE {
       MemoryStream ms = new MemoryStream(sDESCipherText.toByteArray());
       CryptoStream encStream = new CryptoStream(ms, aCSP.CreateDecryptor(), CryptoStreamMode.Read);
       StreamReader sr = new StreamReader(encStream);
-      string val = sr.ReadLine().toBase64DecodedStr();
+      string val = sr.ReadToEnd().toBase64DecodedStr();
       sr.Close();
       encStream.Close();
       ms.Close();
@@ -436,6 +446,24 @@ namespace C0DEC0RE {
     public static string toLog(this string sMsg, string sLogName){
       using (StreamWriter w = File.AppendText(LogFileName(sLogName))) { 
         w.WriteLine(DateTime.Now.toStrDateTime() + ":" + sMsg); 
+      }
+      return sMsg;
+    }
+
+    public static string toTextFile(this string sMsg, string sLogFileName){ 
+      try{
+        using (StreamWriter w = File.AppendText(sLogFileName)) { w.Write(sMsg); }
+      } catch (Exception ee) { 
+        sMsg = "Error: "+ee.Message;
+      }
+      return sMsg;
+    }
+
+    public static string toTextFileLine(this string sMsg, string sLogFileName){ 
+      try{
+        using (StreamWriter w = File.AppendText(sLogFileName)) { w.WriteLine(sMsg); }
+      } catch (Exception ee) { 
+        sMsg = "Error: "+ee.Message;
       }
       return sMsg;
     }

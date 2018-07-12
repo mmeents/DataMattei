@@ -155,7 +155,7 @@ namespace C0DEC0RE {
             throw new Exception("Password not present. Aborting start.");
           }
         }
-      } else {
+      } else { 
         sMasterPwd = aMasterPwd;
       }
       
@@ -165,7 +165,7 @@ namespace C0DEC0RE {
       Boolean bRootCertFound = true;
       if(File.Exists(sFileName)) {
         fvMain = new FileVar(sFileName);        
-        if(sMasterPwd !="") {
+        if(sMasterPwd != "") {
           try {
             kpMain = new KeyPair(KeyType.AES, sMasterPwd);
           } catch {
