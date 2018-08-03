@@ -398,7 +398,7 @@ namespace C0DEC0RE {
     }
     public static string toStrTime(this DateTime x)
     {
-      string y = String.Format(CultureInfo.InvariantCulture, "{0:mm:ss.FFF}", x);
+      string y = String.Format(CultureInfo.InvariantCulture, "{hh:mm:ss}", x);
       return y;
     }
     public static string ToStrDateMM(this DateTime x) {
