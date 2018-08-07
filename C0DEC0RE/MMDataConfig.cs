@@ -28,9 +28,14 @@ namespace C0DEC0RE {
 			}
 		}		
 		public string ConnectionName {
-			get	{	return m_connectionName; } 
-			set { m_connectionName=value??throw new ArgumentNullException();}
-		}
+			get	{	return m_connectionName; }
+      set {
+        if (value == null) { 
+          throw new ArgumentNullException(); 
+        }
+        m_connectionName = value;
+      }
+		} 
 
 		public string ConnectionString{
 			get	{	return GetConnectionString();	}
@@ -234,7 +239,8 @@ namespace C0DEC0RE {
         ivFile["ConnectionCount"] = "0";
         s = "0";
       }
-      if(Int32.TryParse(s, out int iConCount)){
+      Int32 iConCount = 0;
+      if(Int32.TryParse(s, out iConCount)){
         if(iConCount > 0) {
           for(Int32 i = 1; i <= iConCount; i++) {
             string sConName = ivFile["Con" + i.ToString() + "Name"];

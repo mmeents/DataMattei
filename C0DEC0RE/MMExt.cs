@@ -168,7 +168,8 @@ namespace C0DEC0RE {
       return Convert.ToString(aObj);
     }
     public static Int32 toInt32(this object aObj) {     
-      if(Int32.TryParse(aObj.toString(), out Int32 r)) {
+      Int32 r = -1;
+      if(Int32.TryParse(aObj.toString(), out r)) {
         return r;
       } else {
         return -1;
@@ -397,7 +398,7 @@ namespace C0DEC0RE {
     }
     public static string toStrTime(this DateTime x)
     {
-      string y = String.Format(CultureInfo.InvariantCulture, "{0:mm:ss.FFF}", x);
+      string y = String.Format(CultureInfo.InvariantCulture, "{hh:mm:ss}", x);
       return y;
     }
     public static string ToStrDateMM(this DateTime x) {
