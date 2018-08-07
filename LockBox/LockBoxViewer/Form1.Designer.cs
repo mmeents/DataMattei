@@ -94,11 +94,11 @@
       // 
       // button1
       // 
-      this.button1.Location = new System.Drawing.Point(83, 99);
+      this.button1.Location = new System.Drawing.Point(67, 22);
       this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(75, 23);
+      this.button1.Size = new System.Drawing.Size(148, 23);
       this.button1.TabIndex = 0;
-      this.button1.Text = "button1";
+      this.button1.Text = "Selected Extract";
       this.button1.UseVisualStyleBackColor = true;
       this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
@@ -132,21 +132,21 @@
       // toolStripMenuItem1
       // 
       this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-      this.toolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItem1.Text = "Open Box";
       this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
       // 
       // closeBoxToolStripMenuItem
       // 
       this.closeBoxToolStripMenuItem.Name = "closeBoxToolStripMenuItem";
-      this.closeBoxToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+      this.closeBoxToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
       this.closeBoxToolStripMenuItem.Text = "Close Box";
       this.closeBoxToolStripMenuItem.Click += new System.EventHandler(this.closeBoxToolStripMenuItem_Click);
       // 
       // addItemsToolStripMenuItem
       // 
       this.addItemsToolStripMenuItem.Name = "addItemsToolStripMenuItem";
-      this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+      this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
       this.addItemsToolStripMenuItem.Text = "Add Items";
       this.addItemsToolStripMenuItem.Click += new System.EventHandler(this.addItemsToolStripMenuItem_Click);
       // 

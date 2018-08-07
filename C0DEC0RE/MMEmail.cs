@@ -191,6 +191,8 @@ namespace C0DEC0RE
 
         if (hasTo && hasMess && hasSub) {
           try {                        
+
+            /*  GMail Send 
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
@@ -198,7 +200,18 @@ namespace C0DEC0RE
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.Credentials = new System.Net.NetworkCredential(fGMailAddr, fGMailPwd);
             smtp.Timeout = 30000;                           
-            smtp.Send(msg);
+            smtp.Send(msg);  */
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.office365.com";
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.Credentials = new System.Net.NetworkCredential(fGMailAddr, fGMailPwd);
+            smtp.Timeout = 30000;                           
+            smtp.Send(msg);  
+
+
           } catch (Exception e07) {
             sResult = sResult + "Error: On Save Send Failed with " + e07.Message + " \n";
             throw;

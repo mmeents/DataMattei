@@ -44,11 +44,13 @@
       this.edC = new System.Windows.Forms.TextBox();
       this.tabPage3 = new System.Windows.Forms.TabPage();
       this.edSQLCursor = new System.Windows.Forms.TextBox();
-      this.panel1 = new System.Windows.Forms.Panel();
-      this.label1 = new System.Windows.Forms.Label();
       this.tabPage4 = new System.Windows.Forms.TabPage();
       this.edScratch = new System.Windows.Forms.TextBox();
+      this.panel1 = new System.Windows.Forms.Panel();
       this.button1 = new System.Windows.Forms.Button();
+      this.label1 = new System.Windows.Forms.Label();
+      this.cmsItem = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
@@ -58,8 +60,9 @@
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
       this.tabPage3.SuspendLayout();
-      this.panel1.SuspendLayout();
       this.tabPage4.SuspendLayout();
+      this.panel1.SuspendLayout();
+      this.cmsItem.SuspendLayout();
       this.SuspendLayout();
       // 
       // splitContainer1
@@ -159,7 +162,7 @@
       this.tabPage1.Location = new System.Drawing.Point(4, 22);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage1.Size = new System.Drawing.Size(629, 526);
+      this.tabPage1.Size = new System.Drawing.Size(604, 494);
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "   SQL   ";
       this.tabPage1.UseVisualStyleBackColor = true;
@@ -172,7 +175,7 @@
       this.edSQL.Multiline = true;
       this.edSQL.Name = "edSQL";
       this.edSQL.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.edSQL.Size = new System.Drawing.Size(623, 520);
+      this.edSQL.Size = new System.Drawing.Size(598, 488);
       this.edSQL.TabIndex = 0;
       this.edSQL.WordWrap = false;
       // 
@@ -182,7 +185,7 @@
       this.tabPage2.Location = new System.Drawing.Point(4, 22);
       this.tabPage2.Name = "tabPage2";
       this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage2.Size = new System.Drawing.Size(629, 526);
+      this.tabPage2.Size = new System.Drawing.Size(604, 494);
       this.tabPage2.TabIndex = 1;
       this.tabPage2.Text = "   C#   ";
       this.tabPage2.UseVisualStyleBackColor = true;
@@ -195,7 +198,7 @@
       this.edC.Multiline = true;
       this.edC.Name = "edC";
       this.edC.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.edC.Size = new System.Drawing.Size(623, 520);
+      this.edC.Size = new System.Drawing.Size(598, 488);
       this.edC.TabIndex = 2;
       this.edC.WordWrap = false;
       // 
@@ -205,7 +208,7 @@
       this.tabPage3.Location = new System.Drawing.Point(4, 22);
       this.tabPage3.Name = "tabPage3";
       this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage3.Size = new System.Drawing.Size(629, 526);
+      this.tabPage3.Size = new System.Drawing.Size(604, 494);
       this.tabPage3.TabIndex = 2;
       this.tabPage3.Text = "SQL Cursor";
       this.tabPage3.UseVisualStyleBackColor = true;
@@ -218,29 +221,9 @@
       this.edSQLCursor.Multiline = true;
       this.edSQLCursor.Name = "edSQLCursor";
       this.edSQLCursor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.edSQLCursor.Size = new System.Drawing.Size(623, 520);
+      this.edSQLCursor.Size = new System.Drawing.Size(598, 488);
       this.edSQLCursor.TabIndex = 3;
       this.edSQLCursor.WordWrap = false;
-      // 
-      // panel1
-      // 
-      this.panel1.Controls.Add(this.button1);
-      this.panel1.Controls.Add(this.label1);
-      this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-      this.panel1.Location = new System.Drawing.Point(0, 0);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(815, 43);
-      this.panel1.TabIndex = 1;
-      // 
-      // label1
-      // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(19, 14);
-      this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(35, 13);
-      this.label1.TabIndex = 2;
-      this.label1.Text = "label1";
       // 
       // tabPage4
       // 
@@ -265,6 +248,16 @@
       this.edScratch.TabIndex = 4;
       this.edScratch.WordWrap = false;
       // 
+      // panel1
+      // 
+      this.panel1.Controls.Add(this.button1);
+      this.panel1.Controls.Add(this.label1);
+      this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+      this.panel1.Location = new System.Drawing.Point(0, 0);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(815, 43);
+      this.panel1.TabIndex = 1;
+      // 
       // button1
       // 
       this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -275,6 +268,31 @@
       this.button1.Text = "Save Scratch";
       this.button1.UseVisualStyleBackColor = true;
       this.button1.Click += new System.EventHandler(this.button1_Click);
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(19, 14);
+      this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(35, 13);
+      this.label1.TabIndex = 2;
+      this.label1.Text = "label1";
+      // 
+      // cmsItem
+      // 
+      this.cmsItem.ImageScalingSize = new System.Drawing.Size(24, 24);
+      this.cmsItem.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+      this.cmsItem.Name = "cmsDatabase";
+      this.cmsItem.Size = new System.Drawing.Size(153, 48);
+      // 
+      // toolStripMenuItem1
+      // 
+      this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItem1.Text = "Add Item";
+      this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
       // 
       // Form1
       // 
@@ -298,10 +316,11 @@
       this.tabPage2.PerformLayout();
       this.tabPage3.ResumeLayout(false);
       this.tabPage3.PerformLayout();
-      this.panel1.ResumeLayout(false);
-      this.panel1.PerformLayout();
       this.tabPage4.ResumeLayout(false);
       this.tabPage4.PerformLayout();
+      this.panel1.ResumeLayout(false);
+      this.panel1.PerformLayout();
+      this.cmsItem.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -327,6 +346,8 @@
     private System.Windows.Forms.TabPage tabPage4;
     private System.Windows.Forms.TextBox edScratch;
     private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.ContextMenuStrip cmsItem;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
   }
 }
 

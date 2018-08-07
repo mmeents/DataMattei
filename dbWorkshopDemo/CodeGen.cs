@@ -63,7 +63,7 @@ namespace dbWorkshop {
           sKeyType = sKeyType + "(" + sFirstCol.ParseString(" ()",2) + ")";
         }
       }
-      string sUpdateDefWhere = sKey + "= @a" + sKey;
+      string sUpdateDefWhere = sKey + " = @a";
       string sSQL = GetAbout() +
         "-- Add Update SQL Stored Proc for " + tblName + "" + Environment.NewLine +
         "Create Procedure sp_AddUpdate" + tblName + " (" + Environment.NewLine + "  " + sSQLParam1 + Environment.NewLine + ") as " + Environment.NewLine +
