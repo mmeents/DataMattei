@@ -15,7 +15,7 @@ namespace dbWorkshop
 {
   public partial class Form1:Form{
 
-    Dictionary<string,DbConnectionInfo> dCon;
+  //  Dictionary<string,DbConnectionInfo> dCon;
     MMConMgr mCon;
 
     public Form1(){
@@ -189,5 +189,7 @@ namespace dbWorkshop
       } 
 
     }
+
+   
   }
 }
