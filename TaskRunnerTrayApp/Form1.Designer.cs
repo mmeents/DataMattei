@@ -33,6 +33,7 @@
       this.lbRow1 = new System.Windows.Forms.Label();
       this.lbRow0 = new System.Windows.Forms.Label();
       this.tabPage2 = new System.Windows.Forms.TabPage();
+      this.lbTime2 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.lbTasks = new System.Windows.Forms.ListBox();
       this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -40,7 +41,6 @@
       this.editTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.removeTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.tAppClock = new System.Windows.Forms.Timer(this.components);
-      this.lbTime2 = new System.Windows.Forms.Label();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
@@ -53,14 +53,13 @@
       // 
       // tabControl1
       // 
-      this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage2);
+      this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.tabControl1.Location = new System.Drawing.Point(0, 0);
-      this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(766, 708);
+      this.tabControl1.Size = new System.Drawing.Size(511, 460);
       this.tabControl1.TabIndex = 0;
       // 
       // tabPage1
@@ -68,11 +67,10 @@
       this.tabPage1.Controls.Add(this.lbOutlook);
       this.tabPage1.Controls.Add(this.lbRow1);
       this.tabPage1.Controls.Add(this.lbRow0);
-      this.tabPage1.Location = new System.Drawing.Point(4, 29);
-      this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+      this.tabPage1.Location = new System.Drawing.Point(4, 22);
       this.tabPage1.Name = "tabPage1";
-      this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-      this.tabPage1.Size = new System.Drawing.Size(758, 675);
+      this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage1.Size = new System.Drawing.Size(503, 434);
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Schedule";
       this.tabPage1.UseVisualStyleBackColor = true;
@@ -80,31 +78,27 @@
       // lbOutlook
       // 
       this.lbOutlook.FormattingEnabled = true;
-      this.lbOutlook.ItemHeight = 20;
-      this.lbOutlook.Location = new System.Drawing.Point(40, 120);
-      this.lbOutlook.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+      this.lbOutlook.Location = new System.Drawing.Point(27, 78);
       this.lbOutlook.Name = "lbOutlook";
-      this.lbOutlook.Size = new System.Drawing.Size(652, 184);
+      this.lbOutlook.Size = new System.Drawing.Size(436, 121);
       this.lbOutlook.TabIndex = 2;
       this.lbOutlook.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
       // 
       // lbRow1
       // 
       this.lbRow1.AutoSize = true;
-      this.lbRow1.Location = new System.Drawing.Point(12, 52);
-      this.lbRow1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+      this.lbRow1.Location = new System.Drawing.Point(8, 34);
       this.lbRow1.Name = "lbRow1";
-      this.lbRow1.Size = new System.Drawing.Size(62, 20);
+      this.lbRow1.Size = new System.Drawing.Size(43, 13);
       this.lbRow1.TabIndex = 1;
       this.lbRow1.Text = "lbRow1";
       // 
       // lbRow0
       // 
       this.lbRow0.AutoSize = true;
-      this.lbRow0.Location = new System.Drawing.Point(12, 14);
-      this.lbRow0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+      this.lbRow0.Location = new System.Drawing.Point(8, 9);
       this.lbRow0.Name = "lbRow0";
-      this.lbRow0.Size = new System.Drawing.Size(51, 20);
+      this.lbRow0.Size = new System.Drawing.Size(35, 13);
       this.lbRow0.TabIndex = 0;
       this.lbRow0.Text = "label1";
       // 
@@ -113,22 +107,29 @@
       this.tabPage2.Controls.Add(this.lbTime2);
       this.tabPage2.Controls.Add(this.label2);
       this.tabPage2.Controls.Add(this.lbTasks);
-      this.tabPage2.Location = new System.Drawing.Point(4, 29);
-      this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+      this.tabPage2.Location = new System.Drawing.Point(4, 22);
       this.tabPage2.Name = "tabPage2";
-      this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-      this.tabPage2.Size = new System.Drawing.Size(758, 675);
+      this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage2.Size = new System.Drawing.Size(503, 434);
       this.tabPage2.TabIndex = 1;
-      this.tabPage2.Text = "Additional Details";
+      this.tabPage2.Text = "Edit Task Details";
       this.tabPage2.UseVisualStyleBackColor = true;
+      // 
+      // lbTime2
+      // 
+      this.lbTime2.AutoSize = true;
+      this.lbTime2.Location = new System.Drawing.Point(6, 3);
+      this.lbTime2.Name = "lbTime2";
+      this.lbTime2.Size = new System.Drawing.Size(35, 13);
+      this.lbTime2.TabIndex = 2;
+      this.lbTime2.Text = "label1";
       // 
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(42, 35);
-      this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+      this.label2.Location = new System.Drawing.Point(28, 23);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(55, 20);
+      this.label2.Size = new System.Drawing.Size(39, 13);
       this.label2.TabIndex = 1;
       this.label2.Text = "Tasks ";
       // 
@@ -136,11 +137,9 @@
       // 
       this.lbTasks.ContextMenuStrip = this.contextMenuStrip1;
       this.lbTasks.FormattingEnabled = true;
-      this.lbTasks.ItemHeight = 20;
-      this.lbTasks.Location = new System.Drawing.Point(68, 80);
-      this.lbTasks.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+      this.lbTasks.Location = new System.Drawing.Point(45, 52);
       this.lbTasks.Name = "lbTasks";
-      this.lbTasks.Size = new System.Drawing.Size(578, 164);
+      this.lbTasks.Size = new System.Drawing.Size(387, 108);
       this.lbTasks.TabIndex = 0;
       // 
       // contextMenuStrip1
@@ -151,51 +150,40 @@
             this.editTaskToolStripMenuItem,
             this.removeTaskToolStripMenuItem});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(190, 94);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(145, 70);
       // 
       // addTaskToolStripMenuItem
       // 
       this.addTaskToolStripMenuItem.Name = "addTaskToolStripMenuItem";
-      this.addTaskToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+      this.addTaskToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
       this.addTaskToolStripMenuItem.Text = "Add Task";
       this.addTaskToolStripMenuItem.Click += new System.EventHandler(this.addTaskToolStripMenuItem_Click);
       // 
       // editTaskToolStripMenuItem
       // 
       this.editTaskToolStripMenuItem.Name = "editTaskToolStripMenuItem";
-      this.editTaskToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+      this.editTaskToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
       this.editTaskToolStripMenuItem.Text = "Edit Task";
       this.editTaskToolStripMenuItem.Click += new System.EventHandler(this.editTaskToolStripMenuItem_Click);
       // 
       // removeTaskToolStripMenuItem
       // 
       this.removeTaskToolStripMenuItem.Name = "removeTaskToolStripMenuItem";
-      this.removeTaskToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+      this.removeTaskToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
       this.removeTaskToolStripMenuItem.Text = "Remove Task";
       this.removeTaskToolStripMenuItem.Click += new System.EventHandler(this.removeTaskToolStripMenuItem_Click);
       // 
       // tAppClock
       // 
-      this.tAppClock.Interval = 1000;
+      this.tAppClock.Interval = 4200;
       this.tAppClock.Tick += new System.EventHandler(this.tAppClock_Tick);
-      // 
-      // lbTime2
-      // 
-      this.lbTime2.AutoSize = true;
-      this.lbTime2.Location = new System.Drawing.Point(9, 5);
-      this.lbTime2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-      this.lbTime2.Name = "lbTime2";
-      this.lbTime2.Size = new System.Drawing.Size(51, 20);
-      this.lbTime2.TabIndex = 2;
-      this.lbTime2.Text = "label1";
       // 
       // Form1
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(766, 708);
+      this.ClientSize = new System.Drawing.Size(511, 460);
       this.Controls.Add(this.tabControl1);
-      this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
       this.Name = "Form1";
       this.Text = "Mattei Task Runner Properties";
       this.Load += new System.EventHandler(this.Form1_Load);

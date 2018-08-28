@@ -21,10 +21,8 @@ namespace TrayApp1
 
   public class TrayAppContext : ApplicationContext{ 
     private NotifyIcon trayIcon;
-  //  private MMCredentialStore MCS;
     private Form1 form1;
     public TrayAppContext(){ 
-  //    MCS = new MMCredentialStore("local");
       form1 = new Form1();
       form1.LoadContext(this);
 
@@ -36,9 +34,13 @@ namespace TrayApp1
       });
       trayIcon.Visible = true;
     }
-    void ShowSettingsMenueClick(object sender, EventArgs e){             
-      if (form1.ShowDialog()==DialogResult.OK){ 
+    void ShowSettingsMenueClick(object sender, EventArgs e){   
+      if (!form1.Visible) {         
+        if (form1.ShowDialog()==DialogResult.OK){ 
        
+        }
+      } else { 
+        form1.BringToFront();
       }
     }
     void ExitMenueClick(object sender, EventArgs e){ 

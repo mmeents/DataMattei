@@ -388,7 +388,7 @@ namespace C0DEC0RE {
 
     public static string toStrDateTime(this DateTime x)
     {
-      string y = String.Format(CultureInfo.InvariantCulture, "{0:yyyy-MM-dd hh:mm:ss.FFF}", x);
+      string y = String.Format(CultureInfo.InvariantCulture, "{0:yyyy-MM-dd hh:mm:ss.FFF tt}", x);
       return y;
     }
     public static string toStrDate(this DateTime x)
@@ -453,8 +453,8 @@ namespace C0DEC0RE {
     public static string toTextFile(this string sMsg, string sLogFileName){ 
       try{
         using (StreamWriter w = File.AppendText(sLogFileName)) { w.Write(sMsg); }
-      } catch (Exception ee) { 
-        sMsg = "Error: "+ee.Message;
+      } catch (Exception ee) {      
+        throw ee.toLogException("C0DEC0RE.toTextFile");      
       }
       return sMsg;
     }
@@ -462,8 +462,8 @@ namespace C0DEC0RE {
     public static string toTextFileLine(this string sMsg, string sLogFileName){ 
       try{
         using (StreamWriter w = File.AppendText(sLogFileName)) { w.WriteLine(sMsg); }
-      } catch (Exception ee) { 
-        sMsg = "Error: "+ee.Message;
+      } catch (Exception ee) {
+        throw ee.toLogException("C0DEC0RE.toTextFileLine");
       }
       return sMsg;
     }
@@ -531,6 +531,13 @@ namespace C0DEC0RE {
       }
       return e;
     } 
+
+    public static Exception toLogException(this Exception e, string sLogName) {
+      try {
+        e.toWalkExcTreePath().toTextFile(sLogName);        
+      }catch{}
+      return e;
+    }
 
     #endregion
     

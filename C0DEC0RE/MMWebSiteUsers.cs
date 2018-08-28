@@ -154,7 +154,6 @@ namespace C0DEC0RE {
       "  select @aU_ID U_ID"+Environment.NewLine+
       "return";
   #endregion
-    public Exception lastError = null;
     public void UserUpdate(User toUpdate) {
       MMData d = new MMData();      
       DataSet ud = d.GetStProcDataSet(MMWebSiteConstants.DatabaseName(), "exec dbo.sp_AddUpdateUsers00 @aU_ID, @aU_C_ID, @aU_Login, @aU_Password, @aU_Name, @aU_Email, @aU_SALT, @aU_IsUserAdmin, @aU_IsInhouseStaff, @aU_Domain, @aU_IsActive ", 
@@ -181,7 +180,7 @@ namespace C0DEC0RE {
         if ((x.Tables.Count == 1) & (x.Tables[0].Rows.Count == 1)) {
           user = BuildUserFromRow(x.Tables[0].Rows[0]);
         }        
-      } catch (Exception e) { lastError = e; }
+      } catch { }
       return user;
     }
     public User GetUserID(string userID) {
@@ -193,7 +192,7 @@ namespace C0DEC0RE {
         if ((x.Tables.Count == 1) & (x.Tables[0].Rows.Count == 1)) {
           user = BuildUserFromRow(x.Tables[0].Rows[0]);
         }
-      } catch (Exception e) { lastError = e; }
+      }  catch { }
       return user;
     }
     private User BuildUserFromRow(DataRow userRecord) {      
