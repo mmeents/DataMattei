@@ -1,0 +1,7 @@
+C:\GitHub\AAAProjects\CopyAndKill\DoCopyKill\bin\Debug\DoCopyKill.exe.config
+C:\GitHub\AAAProjects\CopyAndKill\DoCopyKill\bin\Debug\DoCopyKill.exe
+C:\GitHub\AAAProjects\CopyAndKill\DoCopyKill\bin\Debug\DoCopyKill.pdb
+C:\GitHub\AAAProjects\CopyAndKill\DoCopyKill\obj\Debug\DoCopyKill.csprojResolveAssemblyReference.cache
+C:\GitHub\AAAProjects\CopyAndKill\DoCopyKill\obj\Debug\DoCopyKill.csproj.CoreCompileInputs.cache
+C:\GitHub\AAAProjects\CopyAndKill\DoCopyKill\obj\Debug\DoCopyKill.exe
+C:\GitHub\AAAProjects\CopyAndKill\DoCopyKill\obj\Debug\DoCopyKill.pdb

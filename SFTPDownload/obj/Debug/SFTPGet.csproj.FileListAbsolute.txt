@@ -1,0 +1,11 @@
+C:\GitHub\AAAProjects\SFTPDownload\bin\Debug\ZipDB.exe.config
+C:\GitHub\AAAProjects\SFTPDownload\bin\Debug\ZipDB.exe
+C:\GitHub\AAAProjects\SFTPDownload\bin\Debug\ZipDB.pdb
+C:\GitHub\AAAProjects\SFTPDownload\bin\Debug\Tamir.SharpSSH.dll
+C:\GitHub\AAAProjects\SFTPDownload\bin\Debug\DiffieHellman.dll
+C:\GitHub\AAAProjects\SFTPDownload\bin\Debug\Org.Mentalis.Security.dll
+C:\GitHub\AAAProjects\SFTPDownload\bin\Debug\Tamir.SharpSSH.pdb
+C:\GitHub\AAAProjects\SFTPDownload\obj\Debug\SFTPGet.csprojResolveAssemblyReference.cache
+C:\GitHub\AAAProjects\SFTPDownload\obj\Debug\SFTPGet.csproj.CoreCompileInputs.cache
+C:\GitHub\AAAProjects\SFTPDownload\obj\Debug\ZipDB.exe
+C:\GitHub\AAAProjects\SFTPDownload\obj\Debug\ZipDB.pdb
