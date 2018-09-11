@@ -30,21 +30,25 @@ namespace dbWorkshop {
       edSQL.Text = "SQL Not Implemented Yet";
       edC.Text = "C# Not Implemented yet ";
       edSQLCursor.Text="Not Implemented see Table or View item on tree.";
+      edWiki.Text = "";
     }
     public void PrepareDatabase(TreeNode tnDatabase) {
       edSQL.Text = "SQL Not Implemented Yet";
       edC.Text = "C# Not Implemented yet ";
       edSQLCursor.Text="Not Implemented see Table or View item on tree.";
+      edWiki.Text = "";
     }
     public void PrepareFolder(TreeNode tnFolder) {
       edSQL.Text = "SQL Not Implemented Yet";
       edC.Text = "C# Not Implemented yet ";
       edSQLCursor.Text="Not Implemented see Table or View item on tree.";
+      edWiki.Text = "";
     }
     public void PrepareFunction(TreeNode tnFunction) {
       edSQL.Text = GetHelpText(tnFunction);
       edC.Text = "C# Not Implemented yet ";
       edSQLCursor.Text="Not Implemented see Table or View item on tree.";
+      edWiki.Text = "";
     }
     public void PrepareTable(TreeNode tnTable) {
       TreeNode cn = tnTable;
@@ -85,11 +89,13 @@ namespace dbWorkshop {
         
       edC.Text = "C# Not Implemented yet ";
       edSQLCursor.Text=GetSQLCursor(tnTable);
+      edWiki.Text = "";
     }
     public void PrepareView(TreeNode tnView) {
       edSQL.Text=GetHelpText(tnView);        
       edC.Text = "C# Not Implemented yet ";
       edSQLCursor.Text =GetSQLCursor(tnView);
+      edWiki.Text = "";
     }
     public void PrepareStProc(TreeNode tnStProc) {
       edSQL.Text = GetHelpText(tnStProc);
@@ -128,6 +134,7 @@ namespace dbWorkshop {
 
       edC.Text =  s;
       edSQLCursor.Text="Not Implemented see Table or View item on tree.";
+      edWiki.Text = "";
     }
 
     public string GetSQLCursor(TreeNode tnTable) {     
@@ -366,6 +373,7 @@ namespace dbWorkshop {
 
     public string GetTableCreate(RCData d, string sDB, string sTableName){ 
       string sResult = "";      
+      d.CI.InitialCatalog = sDB;
       DataSet ds = d.GetDataSet(
         "DECLARE @object_name SYSNAME, @object_id INT, @SQL NVARCHAR(MAX)"+Environment.NewLine+
         "  SELECT  @object_name = '[' + OBJECT_SCHEMA_NAME(o.[object_id]) + '].[' + OBJECT_NAME([object_id]) + ']', "+Environment.NewLine+

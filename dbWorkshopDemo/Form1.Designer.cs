@@ -51,6 +51,8 @@
       this.label1 = new System.Windows.Forms.Label();
       this.cmsItem = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+      this.tabPage5 = new System.Windows.Forms.TabPage();
+      this.edWiki = new System.Windows.Forms.TextBox();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
@@ -63,6 +65,7 @@
       this.tabPage4.SuspendLayout();
       this.panel1.SuspendLayout();
       this.cmsItem.SuspendLayout();
+      this.tabPage5.SuspendLayout();
       this.SuspendLayout();
       // 
       // splitContainer1
@@ -149,6 +152,7 @@
       this.tabControl1.Controls.Add(this.tabPage2);
       this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Controls.Add(this.tabPage4);
+      this.tabControl1.Controls.Add(this.tabPage5);
       this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.tabControl1.Location = new System.Drawing.Point(0, 0);
       this.tabControl1.Name = "tabControl1";
@@ -285,14 +289,37 @@
       this.cmsItem.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
       this.cmsItem.Name = "cmsDatabase";
-      this.cmsItem.Size = new System.Drawing.Size(153, 48);
+      this.cmsItem.Size = new System.Drawing.Size(124, 26);
       // 
       // toolStripMenuItem1
       // 
       this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-      this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
       this.toolStripMenuItem1.Text = "Add Item";
       this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+      // 
+      // tabPage5
+      // 
+      this.tabPage5.Controls.Add(this.edWiki);
+      this.tabPage5.Location = new System.Drawing.Point(4, 22);
+      this.tabPage5.Name = "tabPage5";
+      this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage5.Size = new System.Drawing.Size(604, 494);
+      this.tabPage5.TabIndex = 4;
+      this.tabPage5.Text = "Wiki";
+      this.tabPage5.UseVisualStyleBackColor = true;
+      // 
+      // edWiki
+      // 
+      this.edWiki.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.edWiki.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.edWiki.Location = new System.Drawing.Point(3, 3);
+      this.edWiki.Multiline = true;
+      this.edWiki.Name = "edWiki";
+      this.edWiki.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      this.edWiki.Size = new System.Drawing.Size(598, 488);
+      this.edWiki.TabIndex = 4;
+      this.edWiki.WordWrap = false;
       // 
       // Form1
       // 
@@ -321,6 +348,8 @@
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
       this.cmsItem.ResumeLayout(false);
+      this.tabPage5.ResumeLayout(false);
+      this.tabPage5.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -348,6 +377,8 @@
     private System.Windows.Forms.Button button1;
     private System.Windows.Forms.ContextMenuStrip cmsItem;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+    private System.Windows.Forms.TabPage tabPage5;
+    private System.Windows.Forms.TextBox edWiki;
   }
 }
 

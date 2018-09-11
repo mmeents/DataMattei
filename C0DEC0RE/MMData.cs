@@ -75,7 +75,7 @@ namespace C0DEC0RE {
   }
   
   public class RCData{  
-    private DbConnectionInfo CI;
+    public DbConnectionInfo CI;
     public RCData( DbConnectionInfo ConInfo ){
       CI = ConInfo;	
     }
