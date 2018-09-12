@@ -51,7 +51,6 @@
       this.edWorkFolder.Name = "edWorkFolder";
       this.edWorkFolder.Size = new System.Drawing.Size(368, 20);
       this.edWorkFolder.TabIndex = 1;
-      this.edWorkFolder.Text = "C:\\GitHub\\AAAProjects\\SQLDumper\\SqlChangeTracker";
       // 
       // button1
       // 

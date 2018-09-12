@@ -142,7 +142,7 @@ namespace SqlChangeTracker
       
       foreach (ConnectionStringSettings sx in ConfigurationManager.ConnectionStrings){
         DbConnectionInfo aCI = new DbConnectionInfo(sx.Name, sx.ConnectionString);
-        if ((sx.Name == "MLM")||(sx.Name == "Sales")){
+        if (true){
           RCData d = new RCData(aCI);
           string sConnection =  sx.Name + ":[" + aCI.ServerName+"]";
           string sServerName = "Srv"+aCI.ServerName.Replace('.', '_');
@@ -151,52 +151,64 @@ namespace SqlChangeTracker
           DataSet dsDB = d.GetDataSet("select name db from master.dbo.sysdatabases where (dbid > 2) and (not (name in ('model','msdb')))  order by name");
 
           foreach(DataRow dr in dsDB.Tables[0].Rows) {
+
             string sDB = dr["DB"].ToString();
             if(MonitorDB.Contains(sDB)){ 
-
-              DataSet ds2 = d.GetDataSet(" select rtrim(so.xtype) ObjType, so.name tbl, sc.name col, rtrim(st.name) ColType, sc.length ColLen from [" + sDB + "].dbo.sysobjects so "
-                + "  left outer join [" + sDB + "].dbo.syscolumns sc on so.id=sc.id "
-                + "  left outer join (select Name, min(UserType) UserType, xtype from [" + sDB + "].dbo.systypes Group by Name, xtype ) st on sc.UserType=st.UserType and sc.xtype=st.xtype "
-                + " where so.xtype  in ('U','V','P','FN') and (so.Name not like ('dt_%')) and (so.Name not like ('sys%')) and (st.Name is not null)  "
-                + "  order by so.xtype, so.name, sc.ColOrder  ");
-
-              string sLastObjType = "";
-              string sLastItem = "";
-              foreach (DataRow dr2 in ds2.Tables[0].Rows)
-              {
-                string sObjtype = Convert.ToString(dr2["ObjType"]);
-                string sItemName = Convert.ToString(dr2["tbl"]);
-                if ((sObjtype == "P") || (sObjtype == "U") || (sObjtype == "V") || (sObjtype == "FN")) {
-                  if (sLastObjType != sObjtype) {                    
-                    sLastObjType = sObjtype;
-                  }
-                  if ((sLastItem != sItemName)){                    
-                    sLastItem = sItemName;
-                    if  ((sObjtype == "P") || (sObjtype == "U") || (sObjtype == "V") || (sObjtype == "FN")) {
-                      string sFileName = edWorkFolder.Text+"\\"+sServerName+"\\"+sDB+"\\"+sLastItem+".sql";
-                      if (!Directory.Exists(edWorkFolder.Text+"\\"+sServerName+"\\"+sDB)){ 
-                        Directory.CreateDirectory(edWorkFolder.Text+"\\"+sServerName+"\\"+sDB);
-                      }
-                      if(File.Exists(sFileName)){ 
-                        File.Delete(sFileName);
-                      }
-                      edOut.Text = sConnection +".["+sDB+"].dbo."+sItemName+ Environment.NewLine+ edOut.Text;                          
-                      if(sObjtype=="U") {
-                        GetTableCreate(d, sDB, "[dbo].["+sItemName+"]").toTextFile(sFileName); 
-                      } else {
-                        GetHelpText(d, sDB, sItemName).toTextFile(sFileName);
-                      }
-                    }
-                  }                           
-                  
-
-                  
-                }
+              DataSet ds2 = null; 
+              try {
+                ds2 = d.GetDataSet(" select rtrim(so.xtype) ObjType, so.name tbl, sc.name col, rtrim(st.name) ColType, sc.length ColLen from [" + sDB + "].dbo.sysobjects so "
+                  + "  left outer join [" + sDB + "].dbo.syscolumns sc on so.id=sc.id "
+                  + "  left outer join (select Name, min(UserType) UserType, xtype from [" + sDB + "].dbo.systypes Group by Name, xtype ) st on sc.UserType=st.UserType and sc.xtype=st.xtype "
+                  + " where so.xtype  in ('U','V','P','FN') and (so.Name not like ('dt_%')) and (so.Name not like ('sys%')) and (st.Name is not null)  "
+                  + "  order by so.xtype, so.name, sc.ColOrder  ");
+              } catch (Exception er){ 
+                edOut.Text = er.toWalkExcTreePath() + Environment.NewLine + edOut.Text;
+                ds2 = null;
               }
 
+              if (ds2 != null){
+                string sLastObjType = "";
+                string sLastItem = "";
+                string sFileName = ""; 
+                foreach (DataRow dr2 in ds2.Tables[0].Rows) {
+                  try {
+                    string sObjtype = Convert.ToString(dr2["ObjType"]);
+                    string sItemName = Convert.ToString(dr2["tbl"]);
+                    if ((sObjtype == "P") || (sObjtype == "U") || (sObjtype == "V") || (sObjtype == "FN")) {
+                      if (sLastObjType != sObjtype) {                    
+                        sLastObjType = sObjtype;
+                      }
+                      if ((sLastItem != sItemName)){                    
+                        sLastItem = sItemName;
+                        if  ((sObjtype == "P") || (sObjtype == "U") || (sObjtype == "V") || (sObjtype == "FN")) {
+                          sFileName = edWorkFolder.Text+"\\"+sServerName+"\\"+sDB+"\\"+sLastItem+".sql";
+                          if (!Directory.Exists(edWorkFolder.Text+"\\"+sServerName+"\\"+sDB)){ 
+                            Directory.CreateDirectory(edWorkFolder.Text+"\\"+sServerName+"\\"+sDB);
+                          }
+                          if(File.Exists(sFileName)){ 
+                            File.Delete(sFileName);
+                          }
+                          edOut.Text = sConnection +".["+sDB+"].dbo."+sItemName+ Environment.NewLine+ edOut.Text;                          
+                          if(sObjtype=="U") {
+                            GetTableCreate(d, sDB, "[dbo].["+sItemName+"]").toTextFile(sFileName); 
+                          } else {
+                            GetHelpText(d, sDB, sItemName).toTextFile(sFileName);
+                          }
+                        }
+                      }                           
+                  
 
+                  
+                    }
+                  } catch (Exception ee) { 
+                    edOut.Text = sFileName+":"+ee.toWalkExcTreePath() + Environment.NewLine + edOut.Text;
+                  }
+                }
 
-            }            
+              } 
+            }  
+            
+
           }
 
 
