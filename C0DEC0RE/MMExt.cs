@@ -444,8 +444,15 @@ namespace C0DEC0RE {
     }
 
     public static string toLog(this string sMsg, string sLogName){
-      using (StreamWriter w = File.AppendText(LogFileName(sLogName))) { 
-        w.WriteLine(DateTime.Now.toStrDateTime() + ":" + sMsg); 
+      string sLogFileName = LogFileName(sLogName);
+      if (File.Exists(sLogFileName)) { 
+        using (StreamWriter w = File.AppendText(sLogFileName)) { 
+          w.WriteLine(DateTime.Now.toStrDateTime() + ":" + sMsg); 
+        }
+      } else {
+        using (StreamWriter w = File.CreateText(sLogFileName)) {
+          w.WriteLine(DateTime.Now.toStrDateTime() + ":" + sMsg);
+        }
       }
       return sMsg;
     }

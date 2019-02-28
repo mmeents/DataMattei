@@ -20,7 +20,7 @@ namespace TestCredentialStore
     private MMCredentialStore MCS;
     private void Form1_Load(object sender, EventArgs e) {
       listBox1.Items.Clear();      
-      MCS = new MMCredentialStore("local");      
+      MCS = new MMCredentialStore("eamm", "\\ProtoAlphaSettings.ini" );      
       loadListBox();      
     }
 
@@ -34,8 +34,8 @@ namespace TestCredentialStore
           }
         }
       }
-      if (button1.Visible) button1.Visible = false;
-      if (button2.Visible) button2.Visible = false;
+      if (button1.Enabled) button1.Enabled = false;
+      if (button2.Enabled) button2.Enabled = false;
       dirty = false;
     }
 
@@ -45,8 +45,8 @@ namespace TestCredentialStore
           textBox1.Text = c;       
           textBox2.Text = MCS[c].ParseString(" ",0);       
           textBox3.Text = MCS[c].ParseString(" ",1);    
-          if (button1.Visible) button1.Visible = false;
-          if (button2.Visible) button2.Visible = false;
+          if (button1.Enabled) button1.Enabled = false;
+          if (button2.Enabled) button2.Enabled = false;
           dirty = false;
       }
     }
@@ -79,8 +79,8 @@ namespace TestCredentialStore
     private void textBox1_TextChanged(object sender, EventArgs e) {
       if (!dirty) { 
         dirty = true; 
-        if (!button1.Visible) button1.Visible = true;
-        if (!button2.Visible) button2.Visible = true;
+        if (!button1.Enabled) button1.Enabled= true;
+        if (!button2.Enabled) button2.Enabled = true;
       }       
     }
 

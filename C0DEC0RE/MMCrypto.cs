@@ -143,8 +143,10 @@ namespace C0DEC0RE {
     public FileVar fvMain;
     public KeyPair kpMain;
     public RSATool rTool;
-    private string sMasterPwd = "";
-    public MMCredentialStore( string aMasterPwd) {
+    public string StorageFileName;
+    private string sMasterPwd = "";    
+    public MMCredentialStore( string aMasterPwd, string aFileName) {
+      string sFileName =(aFileName==""? "\\MachineCredentialStoreRoot.Cert" : aFileName);      
       if (aMasterPwd==""){
         PasswordDialog pd = new PasswordDialog();
         if (pd.ShowDialog()!=DialogResult.OK){ 
@@ -159,7 +161,7 @@ namespace C0DEC0RE {
         sMasterPwd = aMasterPwd;
       }
       
-      string sFileName = MMExt.MMConLocation() +"\\MachineCredentialStoreRoot.Cert";
+      sFileName = MMExt.MMConLocation() + sFileName;
       string sPriCert = "";
       string sPubCert = "";
       Boolean bRootCertFound = true;

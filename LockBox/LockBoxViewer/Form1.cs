@@ -22,7 +22,7 @@ namespace LockBoxViewer
     public MMCredentialStore MCS = null;
     public Form1(){
       InitializeComponent();
-      MCS = new MMCredentialStore("");
+      MCS = new MMCredentialStore("local");
       string[] args = Environment.GetCommandLineArgs();
       if ((args.Length>1)&&(args[1].Trim() != "")&&(File.Exists(args[1]))){ 
         string sFile = args[1];        
