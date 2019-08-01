@@ -223,6 +223,9 @@ namespace C0DEC0RE {
       }
       
     }    
+    public MMCredentialStore(string aMasterPwd) : this(aMasterPwd, "") { 
+
+    }
     public string this [string sCredentialName]{ 
       get { return (fvMain["c"+sCredentialName]==null?"": kpMain.toDecryptAES( fvMain["c"+sCredentialName] )); } 
       set { fvMain["c"+sCredentialName] = kpMain.toAESCipher(value); }

@@ -26,3 +26,16 @@ C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.csproj.GenerateResource.Cache
 C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.csproj.CoreCompileInputs.cache
 C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.exe
 C:\gitHub\DataMattei\TestOckto\obj\Debug\tstockto.pdb
+C:\A_GitHub\DataMattei\TestOckto\bin\Debug\tstockto.exe.config
+C:\A_GitHub\DataMattei\TestOckto\bin\Debug\tstockto.exe
+C:\A_GitHub\DataMattei\TestOckto\bin\Debug\tstockto.pdb
+C:\A_GitHub\DataMattei\TestOckto\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\A_GitHub\DataMattei\TestOckto\bin\Debug\Octokit.xml
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.csprojAssemblyReference.cache
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.Form1.resources
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.Properties.Resources.resources
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.csproj.GenerateResource.cache
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.csproj.CoreCompileInputs.cache
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.csproj.CopyComplete
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.exe
+C:\A_GitHub\DataMattei\TestOckto\obj\Debug\tstockto.pdb

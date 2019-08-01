@@ -1,34 +1,9 @@
-C:\Reference\Github\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.dll
-C:\Reference\Github\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.ConnectionDetail.resources
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.PasswordDialog.resources
-<<<<<<< HEAD
-=======
-C:\Reference\Github\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
-C:\gitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.dll
-C:\gitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.ConnectionDetail.resources
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.PasswordDialog.resources
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
-C:\gitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
->>>>>>> 56473de961fa4849a625a1b69295e2dbbbd237ef
 C:\A_GitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.dll
 C:\A_GitHub\DataMattei\C0DEC0RE\bin\Debug\C0DEC0RE.pdb
-C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojResolveAssemblyReference.cache
 C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.ConnectionDetail.resources
 C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.PasswordDialog.resources
 C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.Properties.Resources.resources
-C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.Cache
+C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.GenerateResource.cache
+C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
 C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.dll
 C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.pdb
-C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csprojAssemblyReference.cache
-C:\A_GitHub\DataMattei\C0DEC0RE\obj\Debug\C0DEC0RE.csproj.CoreCompileInputs.cache
