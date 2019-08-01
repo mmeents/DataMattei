@@ -15,8 +15,7 @@ namespace UnitTestProject1 {
     }
     public void Remove(string aKey) {
       if (Contains(aKey)) {
-        object outcast;
-        base.TryRemove(aKey, out outcast);
+        base.TryRemove(aKey, out object outcast);
       }
     }
     public void Merge(CObject aObject, Boolean OnDupOverwiteExisting) {
@@ -44,6 +43,7 @@ namespace UnitTestProject1 {
       Nonce++;
       base[Nonce] = aObj;
       return aObj;
+      //return base[Nonce++] = aObj;
     }
     public object Pop() {
       Object aR = null;
@@ -63,19 +63,56 @@ namespace UnitTestProject1 {
 
   [TestClass]
   public class UTQueue {
+
     [TestMethod]
     public void TestAdd1000() {
       CQueue testQ = new CQueue();
+      for (Int32 i = 1; i <= 100000; i++) {
+        testQ.Add(i);
+      }
+    }
+
+    [TestMethod]
+    public void TestAdd10001() {
+      CQueue testQ = new CQueue();      
+      for (Int32 i = 1; i<= 100000; i++) {
+        testQ.Add(i.toString());
+      }   
+    }
+
+    [TestMethod]
+    public void TestAdd10002() {
+      CQueue testQ = new CQueue();
+      for (Int32 i = 1; i <= 100000; i++) {
+        testQ[testQ.Nonce++] = i;        
+      }
+    }
+
+
+    [TestMethod]
+    public void TestMethod2() {
+
+      CQueue testQ = new CQueue();
       string sN = "";
-      for (Int32 i = 1; i<= 1000; i++) {
+      for (Int32 i = 1; i <= 10000; i++) {
         testQ.Add(i.toString());
       }
 
-      for (Int32 i = 1; i <= 1000; i++) {
-        testQ.Add((i+1000).toString());
+      for (Int32 i = 1; i <= 10000; i++) {
+        testQ.Add((i + 10000).toString());
         sN = (string)testQ.Pop();
-      }
-      Console.WriteLine("cpA:" + sN);
+      }      
+            
+    }
+
+    [TestMethod]
+    public void TestMethod3() {
+
+      CQueue testQ = new CQueue();
+      string sN = "";
+      for (Int32 i = 1; i <= 1000; i++) {
+        testQ.Add(i.toString());
+      }      
 
       for (Int32 i = 1; i <= 999; i++) {
         sN = (string)testQ.Pop();
@@ -83,14 +120,9 @@ namespace UnitTestProject1 {
       sN = (string)testQ.Pop();
       Console.WriteLine("cpB:" + sN);
 
-    }
-
-
-    [TestMethod]
-    public void TestMethod2() {
-      
 
     }
+
   }
 
  
