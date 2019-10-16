@@ -18,7 +18,7 @@
   - Prototype app to test, list, maintain the encrypted connection strings for a windows machine.  
   - Demo of, method of saving the connection strings in the local machine's common app data folder specifically the MMCommon folder. 
   - Data saves to file system and do not get included within repositories.  Data is encrypted on filesystem with AES PDK.   
-  - TestStrings project is demo of how to configure MMConMgr, so it's a most simple demo that also shows you how to configure MMConMgr in your apps.  Still need to test MMConMgr in web apps.
+  - TestStrings project is demo of how to configure MMConMgr, so it's a most simple demo that also shows you how to configure MMConMgr in your apps.  
   - App can be used to configure connection strings for dbWorkshop, SqlChangeTracker below. 
   
 ## TestCredentialStore 
