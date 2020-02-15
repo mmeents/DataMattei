@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Concurrent;
+using System.IO;
+using System.Security.Cryptography;
 using C0DEC0RE;
 using System.Linq;
 
@@ -47,7 +49,7 @@ namespace UnitTestProject1 {
     }
     public object Pop() {
       Object aR = null;
-      if (Keys.Count > 0) {        
+      if (Keys.Count > 0) {
         base.TryRemove(base.Keys.OrderBy(x => x).First(), out aR);
       }
       return aR;
@@ -60,65 +62,115 @@ namespace UnitTestProject1 {
     }
   }
 
+  public enum KeyType { AES, DES, RSA };
+
+  public class CKey : CObject {
+
+    private PasswordDeriveBytes PDB = null;
+
+    public CKey(string Secret) : base () {
+      PDB = new PasswordDeriveBytes(Secret, null);
+    }
+
+    public string toAESCipher(string sText) {
+      string sResult = "";      
+      AesCryptoServiceProvider aASP = new AesCryptoServiceProvider();
+      AesManaged aes = new AesManaged();
+      aes.Key = PDB.GetBytes(32);
+      aes.IV = PDB.GetBytes(16);
+      MemoryStream ms = new MemoryStream();
+      CryptoStream encStream = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
+      StreamWriter sw = new StreamWriter(encStream);
+      sw.WriteLine(sText.toBase64EncodedStr());
+      sw.Close();
+      encStream.Close();
+      byte[] buffer = ms.ToArray();
+      ms.Close();
+      sResult = buffer.toHexStr();      
+      return sResult;
+    }
+    public string toDecryptAES(string sAESCipherText) {
+      string val = "";
+      try {
+        AesCryptoServiceProvider aASP = new AesCryptoServiceProvider();
+        AesManaged aes = new AesManaged();
+        aes.Key = PDB.GetBytes(32);
+        aes.IV = PDB.GetBytes(16);
+        MemoryStream ms = new MemoryStream(sAESCipherText.toByteArray());
+        CryptoStream encStream = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read);
+        StreamReader sr = new StreamReader(encStream);
+        val = sr.ReadToEnd();
+        val = val.toBase64DecodedStr();
+        sr.Close();
+        encStream.Close();
+        ms.Close();
+      } catch (Exception e) {
+        throw e;
+      }
+      return val;
+    }
+
+    public string toDESCipher(string sText) {
+      string sResult = "";
+      DESCryptoServiceProvider aCSP = new DESCryptoServiceProvider();
+      aCSP.Key = PDB.CryptDeriveKey("DES", "SHA1", 64, new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+      aCSP.IV = MMExt.defIV;
+      MemoryStream ms = new MemoryStream();
+      CryptoStream encStream = new CryptoStream(ms, aCSP.CreateEncryptor(), CryptoStreamMode.Write);
+      StreamWriter sw = new StreamWriter(encStream);
+      sw.WriteLine(sText.toBase64EncodedStr());
+      sw.Close();
+      encStream.Close();
+      byte[] buffer = ms.ToArray();
+      ms.Close();
+      sResult = buffer.toHexStr();
+      return sResult;
+    }
+    public string toDecryptDES(string sDESCipherText) {
+      DESCryptoServiceProvider aCSP = new DESCryptoServiceProvider();
+      aCSP.Key = PDB.CryptDeriveKey("DES", "SHA1", 64, new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+      aCSP.IV = MMExt.defIV;
+      MemoryStream ms = new MemoryStream(sDESCipherText.toByteArray());
+      CryptoStream encStream = new CryptoStream(ms, aCSP.CreateDecryptor(), CryptoStreamMode.Read);
+      StreamReader sr = new StreamReader(encStream);
+      string val = sr.ReadToEnd().toBase64DecodedStr();
+      sr.Close();
+      encStream.Close();
+      ms.Close();
+      return val;
+    }
+
+  }
+
 
   [TestClass]
-  public class UTQueue {
-
+  public class ResearchCoreUnderstanding {
+    
     [TestMethod]
     public void TestAdd1000() {
-      CQueue testQ = new CQueue();
-      for (Int32 i = 1; i <= 100000; i++) {
-        testQ.Add(i);
-      }
+
+
+    
     }
 
     [TestMethod]
     public void TestAdd10001() {
-      CQueue testQ = new CQueue();      
-      for (Int32 i = 1; i<= 100000; i++) {
-        testQ.Add(i.toString());
-      }   
+    
     }
 
     [TestMethod]
     public void TestAdd10002() {
-      CQueue testQ = new CQueue();
-      for (Int32 i = 1; i <= 100000; i++) {
-        testQ[testQ.Nonce++] = i;        
-      }
+    
     }
 
 
     [TestMethod]
     public void TestMethod2() {
-
-      CQueue testQ = new CQueue();
-      string sN = "";
-      for (Int32 i = 1; i <= 10000; i++) {
-        testQ.Add(i.toString());
-      }
-
-      for (Int32 i = 1; i <= 10000; i++) {
-        testQ.Add((i + 10000).toString());
-        sN = (string)testQ.Pop();
-      }      
-            
+                  
     }
 
     [TestMethod]
-    public void TestMethod3() {
-
-      CQueue testQ = new CQueue();
-      string sN = "";
-      for (Int32 i = 1; i <= 1000; i++) {
-        testQ.Add(i.toString());
-      }      
-
-      for (Int32 i = 1; i <= 999; i++) {
-        sN = (string)testQ.Pop();
-      }
-      sN = (string)testQ.Pop();
-      Console.WriteLine("cpB:" + sN);
+    public void TestMethod3() {      
 
 
     }

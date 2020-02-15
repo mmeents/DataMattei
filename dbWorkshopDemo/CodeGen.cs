@@ -13,6 +13,9 @@ using C0DEC0RE;
 namespace dbWorkshop {
   public partial class Form1:Form {
 
+
+    #region On Tree View Active Selection Change 
+
     public void tvMain_OnActiveSelectionChange(TreeNode focusNode) {
       Int32 iCurLevel = focusNode.Level;
       switch(focusNode.ImageIndex) {
@@ -59,7 +62,8 @@ namespace dbWorkshop {
       string tblName = tnTable.Text;
       string sSQLParam1 = GetSQLParamList1(tnTable);
       string sSQLParamCall = GetSQLParamCallList(tnTable);
-      string sColList = GetChildColList(tnTable);
+      string sColList = GetChildColList(tnTable, false);
+      string sColListb = GetChildColList(tnTable, true);
       string sAssignColSQL = GetAssignChildSQLColList(tnTable);
       string sFirstCol = "";
       string sKeyType = "", sKey = "";
@@ -87,7 +91,14 @@ namespace dbWorkshop {
         "  select @a " + sKey + Environment.NewLine + "return";
       edSQL.Text= GetTableCreate(d1, sDB, "dbo."+tblName) + Environment.NewLine + Environment.NewLine + sSQL;
         
-      edC.Text = "C# Not Implemented yet ";
+      edC.Text = "MMData m = new MMData();"+Environment.NewLine+
+        "DataSet ds = m.GetDataSet(\"PD\", \"Select " + sColListb +"\" +"+ Environment.NewLine+
+        "  \" from dbo." +tblName+ "\");"+Environment.NewLine + 
+         GetDeclareVarColList(tnTable)+
+
+        "foreach(DataRow r in ds.Tables[0].Rows){" +Environment.NewLine 
+         + GetAssignChildColList(tnTable)+Environment.NewLine+
+        "} ";
       edSQLCursor.Text=GetSQLCursor(tnTable);
       edWiki.Text = "";
     }
@@ -136,6 +147,9 @@ namespace dbWorkshop {
       edSQLCursor.Text="Not Implemented see Table or View item on tree.";
       edWiki.Text = "";
     }
+
+    #endregion 
+
 
     public string GetSQLCursor(TreeNode tnTable) {     
       string sSQLDeclareList = GetSQLDeclareVarColList(tnTable);
@@ -202,8 +216,67 @@ namespace dbWorkshop {
       else if(w == "varbinary") result = "null";
       return result;
     }
-    public string GetChildColList(TreeNode cn) {
-      string sRes = ""; string sFTT = "true";
+    public string GetDataCastBySQLType(string sType) {      
+      string w = sType.ToLower().ParseString(" ()", 0);
+      string result = "";
+      if (w == "char") result = ".toString()";
+      else if (w == "varchar") result = ".toString()";
+      else if (w == "int") result = ".toInt32()";
+      else if (w == "bigint") result = ".toInt64()";
+      else if (w == "binary") result = "";
+      else if (w == "bit") result = ".toInt32()";
+      else if (w == "datetime") result = ".toDateTime()";
+      else if (w == "decimal") result = ".toDouble()";
+      else if (w == "float") result = ".toDouble()";
+      else if (w == "image") result = "";
+      else if (w == "money") result = ".toDouble()";
+      else if (w == "numeric") result = ".toDouble()";
+      else if (w == "nchar") result = "";
+      else if (w == "ntext") result = ".toString()";
+      else if (w == "nvarchar") result = ".toString()";
+      else if (w == "real") result = ".toDouble()";
+      else if (w == "smallint") result = ".toInt32()";
+      else if (w == "smallmoney") result = ".toDouble()";
+      else if (w == "smalldatetime") result = ".toDateTime()";
+      else if (w == "text") result = ".toString()";
+      else if (w == "timestamp") result = ".toDateTime()";
+      else if (w == "tinyint") result = ".toInt32()";
+      else if (w == "uniqueidentifier") result = ".toString()";
+      else if (w == "varbinary") result = "";
+      return result;
+    }
+    public string GetDataCTypeBySQLType(string sType) {
+      string w = sType.ToLower().ParseString(" ()", 0);
+      string result = "";
+      if (w == "char") result = "String ";
+      else if (w == "varchar") result = "String ";
+      else if (w == "int") result = "Int32 ";
+      else if (w == "bigint") result = "Int64 ";
+      else if (w == "binary") result = "";
+      else if (w == "bit") result = "Int32";
+      else if (w == "datetime") result = "DateTime";
+      else if (w == "decimal") result = "Double";
+      else if (w == "float") result = "Double";
+      else if (w == "image") result = "";
+      else if (w == "money") result = "Double";
+      else if (w == "numeric") result = "Double";
+      else if (w == "nchar") result = "";
+      else if (w == "ntext") result = "String";
+      else if (w == "nvarchar") result = "String";
+      else if (w == "real") result = "Double";
+      else if (w == "smallint") result = "Int32";
+      else if (w == "smallmoney") result = "Double";
+      else if (w == "smalldatetime") result = "DateTime";
+      else if (w == "text") result = "String";
+      else if (w == "timestamp") result = "DateTime";
+      else if (w == "tinyint") result = "Int32";
+      else if (w == "uniqueidentifier") result = "String";
+      else if (w == "varbinary") result = "";
+      return result;
+    }
+
+    public string GetChildColList(TreeNode cn, Boolean IncludeKeyField) {
+      string sRes = ""; string sFTT = (IncludeKeyField?"false":"true");
       foreach(TreeNode tn in cn.Nodes) {
         if(sFTT == "true") {
           sFTT = "false";  // don't include the first Keyfield.
@@ -255,6 +328,14 @@ namespace dbWorkshop {
       }
       return sReturn;
     }
+    public string GetDeclareVarColList(TreeNode rn) {
+      string sReturn = "";
+      foreach (TreeNode cn in rn.Nodes) {
+        string sColType = cn.Text.ParseString(" ()", 1);        
+        sReturn = sReturn + GetDataCTypeBySQLType(sColType) + " " + cn.Text.ParseString(" ", 0) + " = " + SQLDefNullValue(sColType) + ";"+ Environment.NewLine + "";        
+      }
+      return sReturn;
+    }
     public string GetSQLColumnVarList(TreeNode rn){
       string sReturn = "";
       foreach(TreeNode cn in rn.Nodes){
@@ -279,6 +360,19 @@ namespace dbWorkshop {
             sRes = sRes + "," + Environment.NewLine + "      " + sCurCol + " = @a" + sCurCol;
           }
         }
+      }
+      return sRes;
+    }
+    public string GetAssignChildColList(TreeNode cn) {
+      string sRes = ""; 
+      foreach (TreeNode tn in cn.Nodes) {
+        string sCurCol = tn.Text.ParseString(" ()", 0);
+        string sColType = tn.Text.ParseString(" ()", 1);        
+        if (sRes == "") {
+          sRes = "  " + sCurCol + " = r[\""+ sCurCol + "\"]" + GetDataCastBySQLType(sColType)+";";
+        } else {
+          sRes = sRes + Environment.NewLine + "  " + sCurCol + " = r[\"" + sCurCol + "\"]" + GetDataCastBySQLType(sColType)+";";
+        }        
       }
       return sRes;
     }

@@ -87,7 +87,7 @@ namespace ZipDB {
       } finally {
         ss.Close();
       }
-      Console.WriteLine("Done. Closeing Connections Bye. " );
+      Console.WriteLine("Done. Closing Connections Bye. " );
       System.Threading.Thread.Sleep(3000);
 
     } catch (Exception ee) {

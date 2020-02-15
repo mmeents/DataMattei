@@ -101,6 +101,9 @@ namespace dbWorkshop
                 {
                   string sVarLen = Convert.ToString(dr["ColLen"]);
                   string sColType = Convert.ToString(dr["Coltype"]);
+                  if ((sColType.ToLower() == "varchar") && (sVarLen == "-1")) {
+                    sVarLen = "MAX";
+                  }
                   string sCol = Convert.ToString(dr["Col"]);
                   ObjItemNode.Nodes.Add(new TreeNode((sColType.Contains("char") ? sCol + " " + sColType + "(" + sVarLen + ")" : sCol + " " + sColType), 7, 7));
                 }

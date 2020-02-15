@@ -161,7 +161,7 @@ namespace C0DEC0RE {
         sMasterPwd = aMasterPwd;
       }
       
-      sFileName = MMExt.MMConLocation() + sFileName;
+      //sFileName = MMExt.MMConLocation() + sFileName;
       string sPriCert = "";
       string sPubCert = "";
       Boolean bRootCertFound = true;
