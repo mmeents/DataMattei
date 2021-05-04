@@ -15,7 +15,7 @@
     - dbVar and FileVar object that provides persistance via Database and File to name value pairs. 
 
 ## TestStrings 
-  - Prototype app to test, list, maintain the encrypted connection strings for a windows machine.  
+  - Prototype app to test, list, maintain encrypted connection strings for a SQL server windows machine.  
   - Demo of, method of saving the connection strings in the local machine's common app data folder specifically the MMCommon folder. 
   - Data saves to file system and do not get included within repositories.  Data is encrypted on filesystem with AES PDK.   
   - TestStrings project is demo of how to configure MMConMgr, so it's a most simple demo that also shows you how to configure MMConMgr in your apps.  
